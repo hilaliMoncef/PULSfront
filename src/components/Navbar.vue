@@ -17,7 +17,9 @@
         </div>
       </span>
     </nav>
-    <router-link class="btn btn-outline-primary" v-if="!isLoggedIn" to="/login">Connexion</router-link>
+    <router-link class="btn btn-outline-primary" v-if="!isLoggedIn" to="/login">
+      <font-awesome-icon icon="user-secret" /> Connexion
+    </router-link>
     <a class="btn btn-outline-primary" v-else @click.prevent="logout">Déconnexion</a>
   </div>
 </template>

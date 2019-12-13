@@ -20,7 +20,6 @@
 </script>
 
 <style>
-  @import './assets/css/bootstrap.min.css';
   @import './assets/css/all.min.css';
 </style>
 

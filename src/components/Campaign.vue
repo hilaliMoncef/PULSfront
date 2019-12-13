@@ -8,8 +8,12 @@
 				</div>
 			</div>
 			<div class="actions d-flex align-self-stretch small">
-				<a href="" @click.prevent="editCampaign" class="btn-rounded mr-2"><i class="fas fa-pen"></i></a>
-				<a href="" @click.prevent="deleteCampaign" class="btn-rounded text-danger"><i class="fas fa-times"></i></a>
+				<a href="" @click.prevent="editCampaign" class="btn-rounded mr-2">
+					<font-awesome-icon icon="pen" />
+				</a>
+				<a href="" @click.prevent="deleteCampaign" class="btn-rounded text-danger">
+					<font-awesome-icon icon="times" />
+				</a>
 			</div>
 		</div>
 	</div>
