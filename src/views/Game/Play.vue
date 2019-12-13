@@ -20,7 +20,7 @@
 		},
 		mounted: function() {
 			this.donator = this.$store.state.currentDonator;
-			this.$http.get('https://puls-preprod.herokuapp.com/terminal/mine/play/')
+			this.$http.get('terminal/mine/play/')
 			.then(resp =>{
 				console.log(resp);
 			});

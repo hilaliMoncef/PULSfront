@@ -74,10 +74,10 @@
 		},
 		methods:{
 			getTerminal: function() {
-				this.$http.get('https://puls-preprod.herokuapp.com/terminal/'+ this.$route.params.id +'/')
+				this.$http.get('terminal/'+ this.$route.params.id +'/')
 				.then(resp => {
 					this.terminal = resp.data;
-					this.$http.get('https://puls-preprod.herokuapp.com/campaign/'+ this.terminal.campaign +'/')
+					this.$http.get('campaign/'+ this.terminal.campaign +'/')
 					.then(resp => {
 						this.campaign = resp.data;
 					})
@@ -90,7 +90,7 @@
 				})
 			},
 			getStats: function() {
-				this.$http.get('https://puls-preprod.herokuapp.com/terminal/'+ this.$route.params.id +'/stats/')
+				this.$http.get('terminal/'+ this.$route.params.id +'/stats/')
 				.then(resp => {
 					const data = JSON.parse(resp.data);
 					this.avgDonations = data.avg_amount;

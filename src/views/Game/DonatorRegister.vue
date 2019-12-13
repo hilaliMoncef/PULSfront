@@ -79,7 +79,7 @@
 				if(this.email){
 					this.newDonator.email = this.email;
 				}
-				this.$http.post('https://puls-preprod.herokuapp.com/donator/', this.newDonator)
+				this.$http.post('donator/', this.newDonator)
 				.then(resp => {
 					if(resp.status == 201) {
 						this.$store.commit('saveCurrentDonator', resp.data)
@@ -93,7 +93,7 @@
 			},
 			gotoGame: function() {
 				if(this.payment){
-					this.$http.patch('https://puls-preprod.herokuapp.com/payment/'+ this.payment.id +'/', {'donator': this.donator.id})
+					this.$http.patch('payment/'+ this.payment.id +'/', {'donator': this.donator.id})
 					.then(resp => {
 						console.log(resp);
 						this.$store.commit('startSession');

@@ -60,7 +60,7 @@
 				if(this.terminal) {
 					this.success = false;
 					this.errors = false;
-					this.$http.put('https://puls-preprod.herokuapp.com/terminal/'+ this.terminal.id +'/', this.terminal)
+					this.$http.put('terminal/'+ this.terminal.id +'/', this.terminal)
 					.then(resp => {
 						this.success = true;
 						this.terminal = resp.data;

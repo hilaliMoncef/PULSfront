@@ -60,7 +60,7 @@
 				if(this.campaign) {
 					this.success = false;
 					this.errors = false;
-					this.$http.put('https://puls-preprod.herokuapp.com/campaign/'+ this.campaign.id +'/', this.campaign)
+					this.$http.put('campaign/'+ this.campaign.id +'/', this.campaign)
 					.then(resp => {
 						this.success = true;
 						this.campaign = resp.data;

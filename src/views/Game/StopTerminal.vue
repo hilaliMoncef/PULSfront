@@ -15,7 +15,7 @@
 	export default {
 		name: "StopTerminal",
 		mounted: function() {
-			this.$http.get('https://puls-preprod.herokuapp.com/terminal/mine/off/')
+			this.$http.get('terminal/mine/off/')
 			.then(resp => {
 				console.log(resp);
 				this.$store.commit('stopTerminal');

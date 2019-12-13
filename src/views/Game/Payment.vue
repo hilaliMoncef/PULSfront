@@ -55,7 +55,7 @@
 						'amount': this.amount,
 						'currency': 'EUR'
 					}
-					this.$http.post('https://puls-preprod.herokuapp.com/payment/', this.payment)
+					this.$http.post('payment/', this.payment)
 					.then(resp => {
 						console.log(resp.status);
 						this.$store.commit('payment', {'amount': this.amount, 'id': resp.data.id});

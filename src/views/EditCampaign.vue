@@ -31,7 +31,7 @@
 		},
 		methods: {
 			getCampaign: function() {
-				this.$http.get('https://puls-preprod.herokuapp.com/campaign/'+ this.$route.params.id +'/')
+				this.$http.get('campaign/'+ this.$route.params.id +'/')
 				.then(resp => {
 					this.campaign = resp.data;
 				})

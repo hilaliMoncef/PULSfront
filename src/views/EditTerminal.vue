@@ -33,7 +33,7 @@
 		},
 		methods: {
 			getCampaigns: function() {
-				this.$http.get('https://puls-preprod.herokuapp.com/campaign/')
+				this.$http.get('campaign/')
 				.then(resp => {
 					this.campaigns = resp.data;
 				})
@@ -42,7 +42,7 @@
 				})
 			},
 			getTerminal: function() {
-				this.$http.get('https://puls-preprod.herokuapp.com/terminal/'+ this.$route.params.id +'/')
+				this.$http.get('terminal/'+ this.$route.params.id +'/')
 				.then(resp => {
 					this.terminal = resp.data;
 				})

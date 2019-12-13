@@ -87,7 +87,7 @@
 		},
 		methods:{
 			getCampaign: function() {
-				this.$http.get('https://puls-preprod.herokuapp.com/campaign/'+ this.$route.params.id +'/')
+				this.$http.get('campaign/'+ this.$route.params.id +'/')
 				.then(resp => {
 					this.campaign = resp.data;
 					this.getStats();
@@ -97,7 +97,7 @@
 				})
 			},
 			getStats: function() {
-				this.$http.get('https://puls-preprod.herokuapp.com/campaign/'+ this.$route.params.id +'/stats/')
+				this.$http.get('campaign/'+ this.$route.params.id +'/stats/')
 				.then(resp => {
 					const data = JSON.parse(resp.data);
 					this.totalToday = data.total_today;

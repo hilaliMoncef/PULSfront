@@ -37,7 +37,7 @@
 		},
 		mounted: function() {
 			if(this.currentTerminal.campaign != null) {
-				this.$http.get('https://puls-preprod.herokuapp.com/campaign/'+ this.currentTerminal.campaign +'/')
+				this.$http.get('campaign/'+ this.currentTerminal.campaign +'/')
 				.then(resp =>{
 					this.currentCampaign = resp.data;
 				})
@@ -54,7 +54,7 @@
 			},
 			activateTerminal: function() {
 				if(this.currentTerminal.campaign) {
-					this.$http.get('https://puls-preprod.herokuapp.com/terminal/'+ this.currentTerminal.id +'/activate/')
+					this.$http.get('terminal/'+ this.currentTerminal.id +'/activate/')
 					.then(resp =>{
 						this.currentTerminal = resp.data;
 					})
@@ -63,7 +63,7 @@
 				}
 			},
 			deactivateTerminal: function() {
-				this.$http.get('https://puls-preprod.herokuapp.com/terminal/'+ this.currentTerminal.id +'/deactivate/')
+				this.$http.get('terminal/'+ this.currentTerminal.id +'/deactivate/')
 				.then(resp =>{
 					this.currentTerminal = resp.data;
 				})

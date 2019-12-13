@@ -29,7 +29,7 @@
 			this.donator = this.$store.state.currentDonator;
 			this.terminal = this.$store.state.currentTerminal;
 			this.campaign = this.$store.state.currentCampaign;
-			this.$http.get('https://puls-preprod.herokuapp.com/terminal/mine/gameover/');
+			this.$http.get('terminal/mine/gameover/');
 		},
 		methods: {
 			restart: function() {
@@ -43,7 +43,7 @@
 					'timesession': ''
 				}
 				console.log(this.session);
-				this.$http.post('https://puls-preprod.herokuapp.com/session/', this.session) 
+				this.$http.post('session/', this.session) 
 				.then(resp =>{
 					console.log(resp);
 					this.$store.commit('deleteGamingStates');

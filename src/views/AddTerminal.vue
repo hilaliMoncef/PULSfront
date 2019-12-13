@@ -97,16 +97,16 @@
 		methods: {
 			addTerminal: function() {
 				if(this.customer && this.user && this.terminal) {
-					this.$http.post('https://puls-preprod.herokuapp.com/customer/', this.customer)
+					this.$http.post('customer/', this.customer)
 					.then(resp => {
 						this.customer = resp.data;
 						this.user.customer = this.customer.id;
-						this.$http.post('https://puls-preprod.herokuapp.com/user/', this.user)
+						this.$http.post('user/', this.user)
 						.then(resp => {
 							this.user = resp.data;
 							this.terminal.owner = this.user.id;
 							this.terminal.campaign = '';
-							this.$http.post('https://puls-preprod.herokuapp.com/terminal/', this.terminal)
+							this.$http.post('terminal/', this.terminal)
 							.then(resp => {
 								this.terminal = resp.data;
 								this.$router.push('/terminals');
@@ -128,7 +128,7 @@
 				}
 			},
 			getCustomers: function() {
-				this.$http.get('https://puls-preprod.herokuapp.com/customer/')
+				this.$http.get('customer/')
 				.then(resp => {
 					this.customers = resp.data;
 				})
@@ -139,7 +139,7 @@
 			continueWithCustomer: function() {
 				if(this.choosenCustomer) {
 					// Get data about customer first
-					this.$http.get('https://puls-preprod.herokuapp.com/customer/' + this.choosenCustomer + '/')
+					this.$http.get('customer/' + this.choosenCustomer + '/')
 					.then(resp => {
 						this.customer = resp.data;
 						this.formVisible = true;

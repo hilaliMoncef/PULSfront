@@ -58,7 +58,7 @@
 					this.success = false;
 					this.errors = false;
 					this.campaign.author = this.$store.state.user_id;
-					this.$http.post('https://puls-preprod.herokuapp.com/campaign/', this.campaign)
+					this.$http.post('campaign/', this.campaign)
 					.then(resp => {
 						console.log(resp);
 						this.$router.push('/campaigns')

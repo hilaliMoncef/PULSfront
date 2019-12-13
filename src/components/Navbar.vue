@@ -2,8 +2,10 @@
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-5 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal"><router-link to="/">PULS</router-link></h5>
     <nav class="my-2 my-md-0 mr-md-3">
-      <router-link class="p-2 text-dark" v-if="!isTerminalOn" to="/start">Démarrer la borne</router-link>
-      <router-link class="p-2 text-dark text-danger" v-else to="/stop">Arrêter la borne</router-link>
+      <div v-if="!isAdmin">
+        <router-link class="p-2 text-dark" v-if="!isTerminalOn" to="/start">Démarrer la borne</router-link>
+        <router-link class="p-2 text-dark text-danger" v-else to="/stop">Arrêter la borne</router-link>
+      </div>
       <span v-if="isLoggedIn && isAdmin">
         <a class="dropdown-toggle p-2" href="#" role="button" id="dropdownAdminMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Admin

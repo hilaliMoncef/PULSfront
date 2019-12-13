@@ -85,7 +85,7 @@ export default new Vuex.Store({
 		login({commit}, user) {
 			return new Promise((resolve, reject) => {
 				commit('auth_request')
-				axios.post('https://puls-preprod.herokuapp.com/auth/', user)
+				axios.post('auth/', user)
 				.then(resp => {
 					const token = 'Token ' + resp.data.token;
 					localStorage.setItem('token', token);
@@ -99,7 +99,7 @@ export default new Vuex.Store({
 							'is_admin': resp.data.is_admin, 
 							'is_superadmin': resp.data.is_superadmin
 						});
-					axios.get('https://puls-preprod.herokuapp.com/terminal/mine/on/')
+					axios.get('terminal/mine/on/')
 					.then(response => {
 						commit('saveCurrentTerminal', response.data);
 					})
@@ -117,7 +117,7 @@ export default new Vuex.Store({
 		register({commit}, credentials){
 			return new Promise((resolve, reject) => {
 				commit('auth_request')
-				axios.post('https://puls-preprod.herokuapp.com/api/user/', credentials)
+				axios.post('api/user/', credentials)
 				.then((response) => {
 					// Connexion et ajout du token
 					console.log(response);
@@ -132,7 +132,7 @@ export default new Vuex.Store({
 		},
 		logout({commit}){
 			return new Promise((resolve) => {
-				axios.get('https://puls-preprod.herokuapp.com/terminal/mine/off/')
+				axios.get('terminal/mine/off/')
 				.then(resp => {
 					resolve(resp)
 				}).catch(err => {

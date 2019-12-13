@@ -39,7 +39,7 @@
 		},
 		methods: {
 			getTerminals: function() {
-				this.$http.get('https://puls-preprod.herokuapp.com/terminal/')
+				this.$http.get('terminal/')
 				.then(resp => {
 					this.terminals = resp.data;
 				})

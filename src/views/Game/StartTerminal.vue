@@ -36,12 +36,12 @@
 			}
 		},
 		mounted: function() {
-			this.$http.get('https://puls-preprod.herokuapp.com/terminal/mine/')
+			this.$http.get('terminal/mine/')
 			.then(resp => {
 				this.$store.commit('startTerminal', resp.data);
 				this.terminal = resp.data.terminal;
 				this.campaign = resp.data.campaign;
-				this.$http.get('https://puls-preprod.herokuapp.com/terminal/mine/on/');
+				this.$http.get('terminal/mine/on/');
 			}).catch(err => {
 				console.error(err.response);
 			})

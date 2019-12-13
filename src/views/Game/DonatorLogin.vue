@@ -38,7 +38,7 @@
 		},
 		methods: {
 			donatorLogin: function() {
-				this.$http.get('https://puls-preprod.herokuapp.com/donator/email/' + this.email + '/')
+				this.$http.get('donator/email/' + this.email + '/')
 				.then(resp => {
 					this.$store.commit('saveCurrentDonator', resp.data)
 					this.$router.push('/donator/login');
