@@ -5,7 +5,7 @@
       <router-link class="p-2 text-dark" v-if="!isTerminalOn" to="/start">Démarrer la borne</router-link>
       <router-link class="p-2 text-dark text-danger" v-else to="/stop">Arrêter la borne</router-link>
       <span v-if="isLoggedIn && isAdmin">
-        <a class="dropdown-toggle p-2" href="" role="button" id="dropdownAdminMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="dropdown-toggle p-2" href="#" role="button" id="dropdownAdminMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Admin
         </a>
 
@@ -18,7 +18,7 @@
       </span>
     </nav>
     <router-link class="btn btn-outline-primary" v-if="!isLoggedIn" to="/login">Connexion</router-link>
-    <a class="btn btn-outline-primary" v-else @click="logout">Déconnexion</a>
+    <a class="btn btn-outline-primary" v-else @click.prevent="logout">Déconnexion</a>
   </div>
 </template>
 
