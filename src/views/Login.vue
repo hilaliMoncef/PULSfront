@@ -5,6 +5,10 @@
 			<p class="lead">Connectez votre terminal pour le mettre en service.</p>
 		</div>
 
+		<div class="alert alert-danger" v-if="error">
+			{{ error }}
+		</div>
+
 		<form class="col-6 offset-3">
 			<div class="row">
 				<div class="col">
@@ -53,7 +57,7 @@
 				.then(() => this.$router.push('/start'))
 				.catch(err => {
 					this.loading = false;
-					console.log(err);
+					this.error = err.response;
 				})
 			}
 		}
