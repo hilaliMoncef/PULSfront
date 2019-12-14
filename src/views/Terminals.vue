@@ -10,7 +10,7 @@
 		<div class="col-8 offset-2 mt-4">
 			<div class="row mb-3 d-flex justify-content-end">
 				<router-link to="/terminal/add" class="btn btn-primary d-flex align-items-center">
-					<font-awesome-icon icon="plus" />
+					<font-awesome-icon icon="plus" class="mr-2" />
 					<span>Nouveau terminal</span>
 				</router-link>
 			</div>

@@ -1,14 +1,6 @@
 <template>
 	<form class="w-100">
 		<div class="row">
-			<div class="alert alert-danger w-100" v-if="errors">
-				Une erreur s'est produite. Vérifier le formulaire.
-			</div>
-			<div class="alert alert-success w-100" v-if="success">
-				La modification a été effectuée avec succès.
-			</div>
-		</div>
-		<div class="row">
 			<div class="col-9">
 				<div class="form-group w-100">
 					<label for="name">Nom du terminal</label>

@@ -11,7 +11,16 @@
 				<div class="col text-center">
 					<router-link to='/payment' class="btn btn-primary">Commencer </router-link>
 				</div>
-			
+
+			</div>
+		</div>
+		<div v-else-if="isAdmin">
+			<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+				<h1 class="display-4">Aucune borne associée</h1>
+				<p class="lead">
+					Ce compte n'est pas associé à une borne.
+				</p>
+				<router-link to="/terminals">Gérer les terminaux</router-link>
 			</div>
 		</div>
 		<div v-else>
@@ -32,19 +41,23 @@
 			return {
 				email: '',
 				terminal: {},
-				campaign: {}
+				campaign: {},
+				isAdmin: {}
 			}
 		},
 		mounted: function() {
-			this.$http.get('terminal/mine/')
-			.then(resp => {
-				this.$store.commit('startTerminal', resp.data);
-				this.terminal = resp.data.terminal;
-				this.campaign = resp.data.campaign;
-				this.$http.get('terminal/mine/on/');
-			}).catch(err => {
-				console.error(err.response);
-			})
+			this.isAdmin = this.$store.getters.isAdmin;
+			if(!this.isAdmin){
+				this.$http.get('terminal/mine/')
+				.then(resp => {
+					this.$store.commit('startTerminal', resp.data);
+					this.terminal = resp.data.terminal;
+					this.campaign = resp.data.campaign;
+					this.$http.get('terminal/mine/on/');
+				}).catch(err => {
+					console.error(err.response);
+				})
+			}
 		}
 	};
 </script>
