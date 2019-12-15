@@ -9,6 +9,7 @@ import Campaign from "../views/Campaign.vue";
 import EditCampaign from "../views/EditCampaign.vue";
 import AddCampaign from "../views/AddCampaign.vue";
 import Customers from "../views/Customers.vue";
+import EditCustomer from "../views/EditCustomer.vue";
 import Terminals from "../views/Terminals.vue";
 import Terminal from "../views/Terminal.vue";
 import EditTerminal from "../views/EditTerminal.vue";
@@ -80,6 +81,15 @@ const routes = [
     path: "/customers",
     name: "customers",
     component: Customers
+  },
+  {
+    path: '/customer/:id/edit',
+    name: 'edit-customer',
+    component: EditCustomer,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
   },
   {
     path: "/login",
