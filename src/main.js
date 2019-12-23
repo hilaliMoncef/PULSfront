@@ -11,7 +11,8 @@ import {
   faUserSecret,
   faPen,
   faTimes,
-  faPlus
+  faPlus,
+  faCheck
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import VueProgressBar from "vue-progressbar";
@@ -24,7 +25,7 @@ Vue.use(VueProgressBar, {
 });
 
 // Font Awesome Stuff
-library.add(faUserSecret, faPen, faTimes, faPlus);
+library.add(faUserSecret, faPen, faTimes, faPlus, faCheck);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;

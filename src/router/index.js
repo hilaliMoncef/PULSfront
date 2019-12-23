@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from '../store/index.js';
+import store from "../store/index.js";
 
 import Home from "../views/Home.vue";
 import Users from "../views/Users.vue";
@@ -17,13 +17,13 @@ import AddTerminal from "../views/AddTerminal.vue";
 import Login from "../views/Login.vue";
 
 import StartTerminal from "../views/Game/StartTerminal.vue";
+import GameChoice from "../views/Game/GameChoice.vue";
+import ShowCampaign from "../views/Game/ShowCampaign.vue";
 import StopTerminal from "../views/Game/StopTerminal.vue";
-import DonatorLogin from "../views/Game/DonatorLogin.vue";
-import DonatorRegister from "../views/Game/DonatorRegister.vue";
 import Payment from "../views/Game/Payment.vue";
 import Play from "../views/Game/Play.vue";
 import Endgame from "../views/Game/Endgame.vue";
-
+import EmailSent from "../views/Game/EmailSent.vue";
 
 Vue.use(VueRouter);
 
@@ -51,8 +51,8 @@ const routes = [
     }
   },
   {
-    path: '/campaign/add',
-    name: 'add-campaign',
+    path: "/campaign/add",
+    name: "add-campaign",
     component: AddCampaign,
     meta: {
       requiresAuth: true,
@@ -60,8 +60,8 @@ const routes = [
     }
   },
   {
-    path: '/campaign/:id',
-    name: 'campaign',
+    path: "/campaign/:id",
+    name: "campaign",
     component: Campaign,
     meta: {
       requiresAuth: true,
@@ -69,8 +69,8 @@ const routes = [
     }
   },
   {
-    path: '/campaign/:id/edit',
-    name: 'edit-campaign',
+    path: "/campaign/:id/edit",
+    name: "edit-campaign",
     component: EditCampaign,
     meta: {
       requiresAuth: true,
@@ -83,8 +83,8 @@ const routes = [
     component: Customers
   },
   {
-    path: '/customer/:id/edit',
-    name: 'edit-customer',
+    path: "/customer/:id/edit",
+    name: "edit-customer",
     component: EditCustomer,
     meta: {
       requiresAuth: true,
@@ -116,21 +116,12 @@ const routes = [
     }
   },
   {
-    path: "/donator/",
-    name: "donator",
-    component: DonatorLogin,
+    path: "/choose",
+    name: "choose",
+    component: GameChoice,
     meta: {
       requiresAuth: true,
-      onlyFrom: 'payment'
-    }
-  },
-  {
-    path: "/donator/login",
-    name: "donator-login",
-    component: DonatorRegister,
-    meta: {
-      requiresAuth: true,
-      onlyFrom: 'donator'
+      onlyFrom: "start"
     }
   },
   {
@@ -139,7 +130,16 @@ const routes = [
     component: Payment,
     meta: {
       requiresAuth: true,
-      onlyFrom: 'start'
+      onlyFrom: "choose"
+    }
+  },
+  {
+    path: "/watch",
+    name: "watch",
+    component: ShowCampaign,
+    meta: {
+      requiresAuth: true,
+      onlyFrom: "payment"
     }
   },
   {
@@ -148,7 +148,7 @@ const routes = [
     component: Play,
     meta: {
       requiresAuth: true,
-      onlyFrom: 'donator-login'
+      onlyFrom: "watch"
     }
   },
   {
@@ -157,12 +157,21 @@ const routes = [
     component: Endgame,
     meta: {
       requiresAuth: true,
-      onlyFrom: 'play'
+      onlyFrom: "play"
     }
   },
   {
-    path: '/terminals',
-    name: 'terminals',
+    path: "/sent",
+    name: "sent",
+    component: EmailSent,
+    meta: {
+      requiresAuth: true,
+      onlyFrom: "endgame"
+    }
+  },
+  {
+    path: "/terminals",
+    name: "terminals",
     component: Terminals,
     meta: {
       requiresAuth: true,
@@ -170,8 +179,8 @@ const routes = [
     }
   },
   {
-    path: '/terminal/add',
-    name: 'add-terminal',
+    path: "/terminal/add",
+    name: "add-terminal",
     component: AddTerminal,
     meta: {
       requiresAuth: true,
@@ -179,16 +188,16 @@ const routes = [
     }
   },
   {
-    path: '/terminal/:id',
-    name: 'terminal',
+    path: "/terminal/:id",
+    name: "terminal",
     component: Terminal,
     meta: {
       requiresAuth: true
     }
   },
   {
-    path: '/terminal/:id/edit',
-    name: 'edit-terminal',
+    path: "/terminal/:id/edit",
+    name: "edit-terminal",
     component: EditTerminal,
     meta: {
       requiresAuth: true
@@ -201,37 +210,33 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.onlyFrom)){
-    if(from.name == to.meta.onlyFrom) {
-      next()
-      return
+  if (to.matched.some(record => record.meta.onlyFrom)) {
+    if (from.name == to.meta.onlyFrom) {
+      next();
+      return;
     }
-    next('/start')
-  }
-  else if(to.matched.some(record => record.meta.requiresAdmin)){
-    if(store.getters.isAdmin) {
-      next()
-      return
+    next("/start");
+  } else if (to.matched.some(record => record.meta.requiresAdmin)) {
+    if (store.getters.isAdmin) {
+      next();
+      return;
     }
-    next('/')
-  }
-  else if(to.matched.some(record => record.meta.requiresAuth)) {
+    next("/");
+  } else if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters.isLoggedIn) {
-      next()
-      return
+      next();
+      return;
     }
-    next('/login') 
-  } 
-  else if(to.matched.some(record => record.meta.requiresAnon)){
-    if(!store.getters.isLoggedIn){
-      next()
-      return
+    next("/login");
+  } else if (to.matched.some(record => record.meta.requiresAnon)) {
+    if (!store.getters.isLoggedIn) {
+      next();
+      return;
     }
-    next('/')
+    next("/");
+  } else {
+    next();
   }
-  else {
-    next() 
-  }
-})
+});
 
 export default router;

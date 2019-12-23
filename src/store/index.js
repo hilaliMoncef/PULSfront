@@ -12,14 +12,21 @@ export default new Vuex.Store({
     user_id: localStorage.getItem("user_id") || "",
     is_admin: localStorage.getItem("is_admin") == "true" || "",
     is_superadmin: localStorage.getItem("is_superadmin") == "true" || "",
-    currentPayment: {},
     currentDonator: "",
     newDonatorEmail: "",
     currentTerminal: "",
     currentCampaign: "",
+    currentGame: "",
     session: {
-      start_time: "",
-      end_time: ""
+      terminal: "",
+      donator: "",
+      start_global: null,
+      end_global: null,
+      start_time: null,
+      end_time: null,
+      position_asso: "",
+      campaign: "",
+      game: null
     }
   },
   mutations: {
@@ -46,13 +53,13 @@ export default new Vuex.Store({
     },
     saveCurrentDonator(state, donator) {
       state.currentDonator = donator;
+      state.session.donator = donator.id;
     },
     saveCurrentTerminal(state, terminal) {
       state.currentTerminal = terminal;
     },
     startTerminal(state, payload) {
       state.currentTerminal = payload.terminal;
-      state.currentCampaign = payload.campaign;
     },
     stopTerminal(state) {
       state.currentTerminal = "";
@@ -67,21 +74,54 @@ export default new Vuex.Store({
       state.currentPayment = {};
       state.currentTerminal = "";
       state.currentCampaign = "";
-      state.session.start_time = "";
-      state.session.end_time = "";
+      state.currentGame = "";
+      state.session = {};
     },
     startSession(state) {
-      state.session.start_time = new Date();
+      state.session.start_global = new Date();
     },
     endSession(state) {
+      state.session.end_global = new Date();
+    },
+    startGameSession(state) {
+      state.session.start_time = new Date();
+    },
+    endGameSession(state) {
       state.session.end_time = new Date();
     },
-    payment(state, payload) {
-      state.currentPayment.amount = parseFloat(payload.amount);
-      state.currentPayment.id = payload.id;
+    saveCampaignChoice(state, payload) {
+      state.session.campaign = payload.campaign.id;
+      state.currentCampaign = payload.campaign;
+      state.session.terminal = state.currentTerminal.id;
+      state.session.position_asso = payload.indexOf;
+    },
+    saveGameChoice(state, payload) {
+      state.currentGame = payload;
+      state.session.game = payload.id;
+    },
+    setSessionId(state, id) {
+      state.session.id = id;
     }
   },
   actions: {
+    startSession({ commit }) {
+      // Creating a new donator
+      axios.post("donator/", {}).then(resp => {
+        commit("saveCurrentDonator", resp.data);
+        // Saving the new session
+        axios
+          .post("session/", this.state.session)
+          .then(resp => {
+            commit("setSessionId", resp.data.id);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+    },
+    updateSession() {
+      axios.put("session/" + this.state.session.id + "/", this.state.session);
+    },
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit("auth_request");

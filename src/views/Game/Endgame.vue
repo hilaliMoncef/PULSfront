@@ -1,58 +1,90 @@
 <template>
-	<div class="col-6 offset-3">
-		<div class="row">
-			<h1 class="display-4 text-center">Merci pour votre don</h1>
-			<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua.</p>
-		</div>
-		<div class="message my-4">
-			{{ campaign.html_template }}
-		</div>
-		<div class="row">
-			<button @click.prevent="restart" class="btn btn-primary btn-lg">Merci !</button>
-		</div>
-	</div>
+  <div class="col-6 offset-3">
+    <div class="row">
+      <h1 class="display-4 text-center">Merci pour votre don</h1>
+      <p class="lead">
+        Si vous le souhaitez, rentrer votre e-mail, nous vous enverrons les
+        informations nécessaires pour établir votre reçu fiscal.
+      </p>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          aria-describedby="emailHelpId"
+          placeholder="Entrez un email valide"
+          v-model="donator.email"
+        />
+        <small id="emailHelpId" class="form-text text-muted"
+          >Nous ne partageons votre email à personne sans votre
+          autorisation.</small
+        >
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input
+            type="radio"
+            class="form-check-input"
+            v-model="donator.accept_asso"
+            value="1"
+          />
+          Cocher si vous souhaitez être mis en relation avec l’association.
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input
+            type="radio"
+            class="form-check-input"
+            v-model="donator.accept_newsletter"
+            value="1"
+          />
+          Cocher si vous souhaitez recevoir des newsletter de l’association.
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <button @click.prevent="saveEmail" class="btn btn-primary btn-lg">
+        Sauvegarder
+      </button>
+      <button @click.prevent="restart" class="btn btn-link btn-lg">
+        Non merci !
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
-	export default {
-		name: "Endgame",
-		data: function() {
-			return {
-				donator: {},
-				terminal: {},
-				campaign: {},
-				session: {}
-			}
-		},
-		mounted: function() {
-			this.donator = this.$store.state.currentDonator;
-			this.terminal = this.$store.state.currentTerminal;
-			this.campaign = this.$store.state.currentCampaign;
-			this.$http.get('terminal/mine/gameover/');
-		},
-		methods: {
-			restart: function() {
-				this.$store.commit('endSession');
-				this.session = {
-					'start_time': this.$store.state.session.start_time,
-					'end_time': this.$store.state.session.end_time,
-					'donator': this.donator.id,
-					'campaign': this.campaign.id,
-					'terminal': this.terminal.id,
-					'timesession': ''
-				}
-				console.log(this.session);
-				this.$http.post('session/', this.session) 
-				.then(resp =>{
-					console.log(resp);
-					this.$store.commit('deleteGamingStates');
-					this.$router.push('/start')
-				}).
-				catch(err => {
-					console.log(err.response);
-				})
-			}
-		}
-	};
-	</script>
+export default {
+  name: "Endgame",
+  data: function() {
+    return {
+      donator: {}
+    };
+  },
+  mounted: function() {
+    this.donator = this.$store.state.currentDonator;
+    this.$http.get("terminal/mine/gameover/");
+    this.$store.commit("endGameSession");
+    this.$store.dispatch("updateSession");
+  },
+  methods: {
+    saveEmail: function() {
+      if (this.donator.email) {
+        this.$http.put("donator/" + this.donator.id + "/", this.donator);
+        this.$router.push("/sent");
+      }
+    },
+    restart: function() {
+      this.$store.commit("endSession");
+      this.$store.dispatch("updateSession");
+      this.$store.commit("deleteGamingStates");
+      this.$router.push("/start");
+    }
+  }
+};
+</script>
