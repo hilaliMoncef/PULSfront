@@ -4,7 +4,7 @@
       <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <ul>
           <div
-            class="form-group w-100 mt-5 d-flex justify-content-between align-items-center"
+            class="form-group w-100 mt-5 d-flex justify-content-between align-items-stretch"
           >
             <label
               v-for="(campaign, index) in campaigns"

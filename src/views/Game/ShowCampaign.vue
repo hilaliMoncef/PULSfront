@@ -1,21 +1,23 @@
 <template>
-  <div class="col-6 offset-3">
+  <div class="col-12">
     <div class="row">
-      <h1 class="display-4 text-center">Merci pour votre don</h1>
-      <p class="lead">
-        {{ campaign.description }}
-      </p>
+      <div class="col-6 offset-3">
+        <h1 class="display-4 text-center">Merci pour votre don</h1>
+        <p class="lead">
+          {{ campaign.description }}
+        </p>
+      </div>
     </div>
     <div class="row">
-      <div
-        style="width: 500px; height: 500px; margin: auto; background-color: black;"
-      ></div>
+      <video controls :src="campaign.video_url" :alt="campaign.name"></video>
     </div>
     <div class="message my-4">
       {{ campaign.html_template }}
     </div>
-    <div class="row">
-      <router-link to="/play" class="btn btn-primary">Jouer</router-link>
+    <div class="row mb-4 w-100">
+      <router-link to="/play" class="btn btn-primary btn-lg mx-auto"
+        >Jouer</router-link
+      >
     </div>
   </div>
 </template>

@@ -13,7 +13,9 @@
     <div class="row">
       <div class="col mb-3">
         <div class="px-4 py-2 card card-rounded bg-dark">
-          <h1 class="display-4" style="color: #fff;">{{ terminal.name }}</h1>
+          <h1 class="display-4" style="color: #fff;">
+            #{{ terminal.id }} {{ terminal.name }}
+          </h1>
           <p class="lead w-100">
             <span class="badge badge-success mr-2" v-if="terminal.is_active"
               >Activé</span

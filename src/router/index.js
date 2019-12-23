@@ -3,12 +3,12 @@ import VueRouter from "vue-router";
 import store from "../store/index.js";
 
 import Home from "../views/Home.vue";
-import Users from "../views/Users.vue";
 import Campaigns from "../views/Campaigns.vue";
 import Campaign from "../views/Campaign.vue";
 import EditCampaign from "../views/EditCampaign.vue";
 import AddCampaign from "../views/AddCampaign.vue";
 import Customers from "../views/Customers.vue";
+import AddCustomer from "../views/AddCustomer.vue";
 import EditCustomer from "../views/EditCustomer.vue";
 import Terminals from "../views/Terminals.vue";
 import Terminal from "../views/Terminal.vue";
@@ -32,14 +32,6 @@ const routes = [
     path: "/",
     name: "home",
     component: Home
-  },
-  {
-    path: "/users",
-    name: "users",
-    component: Users,
-    meta: {
-      requiresAuth: true
-    }
   },
   {
     path: "/campaigns",
@@ -86,6 +78,15 @@ const routes = [
     path: "/customer/:id/edit",
     name: "edit-customer",
     component: EditCustomer,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/customer/add",
+    name: "add-customer",
+    component: AddCustomer,
     meta: {
       requiresAuth: true,
       requiresAdmin: true

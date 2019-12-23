@@ -24,6 +24,7 @@
           v-for="terminal in terminals"
           :terminal="terminal"
           :key="terminal.id"
+          class="mb-3"
         ></Terminal>
       </div>
     </div>

@@ -28,9 +28,6 @@
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownAdminMenu">
-          <router-link class="dropdown-item p-2 text-dark" to="/users"
-            >Users</router-link
-          >
           <router-link class="dropdown-item p-2 text-dark" to="/terminals"
             >Terminaux</router-link
           >
@@ -46,7 +43,7 @@
     <router-link class="btn btn-outline-primary" v-if="!isLoggedIn" to="/login">
       <font-awesome-icon icon="user-secret" /> Connexion
     </router-link>
-    <a class="btn btn-outline-primary" v-else @click.prevent="logout"
+    <a href="#" class="btn btn-outline-primary" v-else @click.prevent="logout"
       >Déconnexion</a
     >
   </div>

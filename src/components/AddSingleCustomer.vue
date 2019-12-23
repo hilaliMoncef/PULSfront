@@ -35,12 +35,8 @@
             <div class="form-group">
               <label for="sales_type">Type de vente</label>
               <select class="form-control" v-model="customer.sales_type">
-                <option value="A" :checked="customer.sales_type == 'A'"
-                  >Achat</option
-                >
-                <option value="L" :checked="customer.sales_type == 'L'"
-                  >Location</option
-                >
+                <option value="A">Achat</option>
+                <option value="L">Location</option>
               </select>
             </div>
           </div>
@@ -48,16 +44,8 @@
             <div class="form-group">
               <label for="sales_type">Contrat de maintenance</label>
               <select class="form-control" v-model="customer.maintenance_type">
-                <option
-                  value="option1"
-                  :checked="customer.sales_type == 'option1'"
-                  >Option 1</option
-                >
-                <option
-                  value="option2"
-                  :checked="customer.sales_type == 'option2'"
-                  >Option 2</option
-                >
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
               </select>
             </div>
           </div>
@@ -67,7 +55,7 @@
     <div class="row mt-3">
       <div class="col text-center">
         <router-link to="/customers" class="btn btn-link">Retour</router-link>
-        <button @click.prevent="edit" class="btn btn-primary">
+        <button @click.prevent="add" class="btn btn-primary">
           Enregistrer les modifications
         </button>
       </div>
@@ -77,17 +65,19 @@
 
 <script>
 export default {
-  name: "EditCustomerForm",
-  props: ["customer"],
+  name: "AddCustomerForm",
+  data: function() {
+    return {
+      customer: {}
+    };
+  },
   methods: {
-    edit: function() {
+    add: function() {
       if (this.customer) {
-        this.$http
-          .put("customer/" + this.customer.id + "/", this.customer)
-          .then(resp => {
-            this.customer = resp.data;
-          })
-          .catch();
+        this.$http.post("customer/", this.customer).then(resp => {
+          this.customer = resp.data;
+          this.$router.push("/customers");
+        });
       }
     }
   }
