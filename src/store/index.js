@@ -12,6 +12,8 @@ export default new Vuex.Store({
     user_id: localStorage.getItem("user_id") || "",
     is_admin: localStorage.getItem("is_admin") == "true" || "",
     is_superadmin: localStorage.getItem("is_superadmin") == "true" || "",
+    maxGames: 3,
+    maxCampaigns: 3,
     currentDonator: "",
     newDonatorEmail: "",
     currentTerminal: "",
@@ -30,9 +32,6 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    auth_request(state) {
-      state.status = "loading";
-    },
     auth_success(state, payload) {
       state.status = "success";
       state.token = payload.token;
@@ -42,7 +41,7 @@ export default new Vuex.Store({
     },
     auth_error(state, payload) {
       state.status = "error";
-      state.errors = payload.response.data;
+      state.errors = payload.response;
     },
     logout(state) {
       state.status = "";
@@ -124,7 +123,6 @@ export default new Vuex.Store({
     },
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
-        commit("auth_request");
         axios
           .post("auth/", user)
           .then(resp => {
@@ -140,20 +138,9 @@ export default new Vuex.Store({
               is_admin: resp.data.is_admin,
               is_superadmin: resp.data.is_superadmin
             });
-            if (!this.getters.isAdmin) {
-              axios
-                .get("terminal/mine/on/")
-                .then(response => {
-                  commit("saveCurrentTerminal", response.data);
-                })
-                .catch(err => {
-                  console.log(err.response);
-                });
-            }
             resolve(resp);
           })
           .catch(err => {
-            console.log(err);
             commit("auth_error", err);
             localStorage.removeItem("token");
             reject(err);
@@ -162,7 +149,6 @@ export default new Vuex.Store({
     },
     register({ commit }, credentials) {
       return new Promise((resolve, reject) => {
-        commit("auth_request");
         axios
           .post("api/user/", credentials)
           .then(response => {

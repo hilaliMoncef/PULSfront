@@ -67,7 +67,17 @@ Vue.prototype.$http.interceptors.response.use(
     // Error handling part
     Vue.prototype.$Progress.fail();
     if (error.response && error.response.data) {
-      toast.error(error.response.statusText);
+      if (error.response.data.non_field_errors) {
+        toast.error(
+          error.response.statusText +
+            " - " +
+            error.response.data.non_field_errors
+        );
+      } else {
+        toast.error(error.response.statusText + " - " + error.response.data);
+      }
+    } else {
+      toast.error(error);
     }
   }
 );

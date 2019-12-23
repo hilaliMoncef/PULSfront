@@ -22,4 +22,10 @@ export default {
 
 <style>
 @import "./assets/css/all.min.css";
+
+.card.card-rounded {
+  border-radius: 20px !important;
+  border: none !important;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
+}
 </style>

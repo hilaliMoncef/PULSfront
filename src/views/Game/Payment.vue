@@ -64,6 +64,7 @@ export default {
           donator: this.$store.state.session.donator,
           terminal: this.$store.state.session.terminal,
           campaign: this.$store.state.session.campaign,
+          game: this.$store.state.session.game,
           date: new Date(),
           method: "Contactless",
           status: "Accepted",

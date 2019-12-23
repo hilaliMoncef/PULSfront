@@ -99,7 +99,9 @@ export default {
           this.campaigns = resp.data.campaigns;
           this.shuffleArray(this.campaigns);
           this.$store.commit("startSession");
-          this.$http.get("terminal/mine/on/");
+          this.$http.get("terminal/mine/on/").then(response => {
+            this.$store.commit("saveCurrentTerminal", response.data);
+          });
         })
         .catch(err => {
           console.error(err.response);
