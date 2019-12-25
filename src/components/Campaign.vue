@@ -2,11 +2,11 @@
   <div class="campaign card w-100 mb-3">
     <div class="card-body d-flex align-items-center justify-content-between">
       <div @click="showDetail" class="clickable d-flex align-items-center">
-        <div class="mr-2">
+        <div class="mr-3">
           <img
             :src="currentCampaign.logo"
             :alt="currentCampaign.name"
-            height="90"
+            width="110"
           />
         </div>
         <div class="d-flex flex-column justify-content-between">

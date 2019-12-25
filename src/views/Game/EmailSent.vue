@@ -8,8 +8,8 @@
       </p>
     </div>
     <div class="row">
-      <router-link to="/start" class="btn btn-primary btn-lg"
-        >Revenir au début</router-link
+      <a href="" @click.prevent="backHome" class="btn btn-primary"
+        >Appuyer sur <span class="g-btn">A</span></a
       >
     </div>
   </div>
@@ -22,6 +22,23 @@ export default {
     this.$store.commit("endSession");
     this.$store.dispatch("updateSession");
     this.$store.commit("deleteGamingStates");
+  },
+  computed: {
+    a() {
+      return this.$store.state.gamepad.A;
+    }
+  },
+  watch: {
+    a: function(val) {
+      if (val) {
+        this.backHome();
+      }
+    }
+  },
+  methods: {
+    backHome: function() {
+      this.$router.push("/start");
+    }
   }
 };
 </script>

@@ -7,11 +7,8 @@
       </p>
     </div>
     <div class="row">
-      <button
-        @click.prevent="endGame"
-        class="btn btn-primary text-center btn-lg"
-      >
-        Fin du jeu
+      <button @click.prevent="endGame" class="btn btn-primary mx-auto">
+        Appuyer sur <span class="g-btn">A</span> pour continuer
       </button>
     </div>
   </div>
@@ -23,6 +20,18 @@ export default {
   mounted: function() {
     this.$http.get("terminal/mine/play/");
     this.$store.commit("startGameSession");
+  },
+  computed: {
+    a() {
+      return this.$store.state.gamepad.A;
+    }
+  },
+  watch: {
+    a: function(val) {
+      if (val) {
+        this.endGame();
+      }
+    }
   },
   methods: {
     endGame: function() {

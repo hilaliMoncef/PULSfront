@@ -15,8 +15,8 @@
       {{ campaign.html_template }}
     </div>
     <div class="row mb-4 w-100">
-      <router-link to="/play" class="btn btn-primary btn-lg mx-auto"
-        >Jouer</router-link
+      <a href="#" @click.prevent="gotoPlay" class="btn btn-primary mx-auto"
+        >Appuyer sur <span class="g-btn">A</span> pour jouer</a
       >
     </div>
   </div>
@@ -31,10 +31,26 @@ export default {
       session: {}
     };
   },
+  computed: {
+    a() {
+      return this.$store.state.gamepad.A;
+    }
+  },
+  watch: {
+    a: function(val) {
+      if (val) {
+        this.gotoPlay();
+      }
+    }
+  },
   mounted: function() {
     this.campaign = this.$store.state.currentCampaign;
     this.session = this.$store.state.session;
   },
-  methods: {}
+  methods: {
+    gotoPlay: function() {
+      this.$router.push("/play");
+    }
+  }
 };
 </script>

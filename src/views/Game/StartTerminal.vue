@@ -46,12 +46,11 @@
             </label>
           </div>
         </ul>
-        <p class="lead">Cliquer sur le bouton pour commencer.</p>
       </div>
       <div class="row">
         <div class="col text-center">
           <a href="" @click.prevent="gotoGameChoice" class="btn btn-primary"
-            >Commencer</a
+            >Appuyer sur <span class="g-btn">A</span> pour continuer</a
           >
         </div>
       </div>
@@ -102,23 +101,61 @@ export default {
           this.$http.get("terminal/mine/on/").then(response => {
             this.$store.commit("saveCurrentTerminal", response.data);
           });
+          this.chooseCampaign(0);
+          this.choosenCampaign = this.campaigns[0].id;
         })
         .catch(err => {
           console.error(err.response);
         });
     }
   },
+  computed: {
+    a() {
+      return this.$store.state.gamepad.A;
+    },
+    left() {
+      return this.$store.state.gamepad.Left;
+    },
+    right() {
+      return this.$store.state.gamepad.Right;
+    }
+  },
+  watch: {
+    a: function(val) {
+      if (val) {
+        this.gotoGameChoice();
+      }
+    },
+    left: function(val) {
+      if (val) {
+        if (this.campaigns[this.choosenIndexOf - 1]) {
+          this.choosenCampaign = this.campaigns[this.choosenIndexOf - 1].id;
+          this.chooseCampaign(this.choosenIndexOf - 1);
+        }
+      }
+    },
+    right: function(val) {
+      if (val) {
+        if (this.campaigns[this.choosenIndexOf + 1]) {
+          this.choosenCampaign = this.campaigns[this.choosenIndexOf + 1].id;
+          this.chooseCampaign(this.choosenIndexOf + 1);
+        }
+      }
+    }
+  },
   methods: {
     chooseCampaign: function(index) {
-      this.choosenIndexOf = index + 1;
+      this.choosenIndexOf = index;
     },
     gotoGameChoice: function() {
-      this.$store.commit("saveCampaignChoice", {
-        campaign: this.campaigns[this.choosenIndexOf - 1],
-        indexOf: this.choosenIndexOf
-      });
-      this.$store.dispatch("startSession");
-      this.$router.push("/choose");
+      if (this.choosenIndexOf) {
+        this.$store.commit("saveCampaignChoice", {
+          campaign: this.campaigns[this.choosenIndexOf],
+          indexOf: this.choosenIndexOf + 1
+        });
+        this.$store.dispatch("startSession");
+        this.$router.push("/choose");
+      }
     },
     shuffleArray: function(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -194,5 +231,18 @@ export default {
   border-color: #3751ff;
   background-color: #3751ff;
   color: white;
+}
+
+.g-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 </style>

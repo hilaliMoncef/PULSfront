@@ -1,47 +1,60 @@
 <template>
-  <div class="col-6 offset-3">
-    <div class="row">
-      <h1 class="display-4 text-center">Paiement</h1>
-      <p class="lead">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </p>
-    </div>
-    <div class="row text-center mb-3">
-      <img
-        src="@/assets/img/contactless.png"
-        width="100"
-        class="mx-auto"
-        alt="Contact Less"
-      />
-    </div>
-    <div class="form card py-4 px-3 m-0">
-      <div class="row mb-3">
-        <div class="col">
-          <label for="amount">Montant choisi</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">€</span>
-            </div>
-            <input
-              type="number"
-              class="form-control"
-              v-model="amount"
-              required=""
-            />
-          </div>
-          <div class="invalid-feedback">
-            Valid amount is required.
-          </div>
-        </div>
+  <div>
+    <div class="col-6 offset-3">
+      <div class="row text-center mb-3">
+        <img
+          src="@/assets/img/contactless.png"
+          width="150"
+          class="mx-auto"
+          alt="Contact Less"
+        />
       </div>
-
-      <div class="row mt-3 text-center">
-        <div class="col">
-          <button class="btn btn-primary" @click="pay">
-            Payer sans contact
-          </button>
+    </div>
+    <div class="pricing-header row py-3 mx-auto text-center">
+      <ul class="p-0 m-0 w-100 col-12">
+        <div
+          class="form-group mt-3 d-flex flex-wrap justify-content-between align-items-stretch"
+        >
+          <label
+            v-for="(amount, index) in amounts"
+            :key="index"
+            :class="[
+              choosenIndexOf == index ? 'checked' : '',
+              'checkbox',
+              'col',
+              'pt-5',
+              'py-3',
+              'm-3'
+            ]"
+            @click="chooseAmount(index)"
+          >
+            <input type="radio" :value="amount" />
+            <span
+              :class="[
+                'selected',
+                'd-flex',
+                'align-items-center',
+                'justify-content-center'
+              ]"
+            >
+              <font-awesome-icon icon="check" />
+            </span>
+            <p class="small my-0">Don de</p>
+            <h4 class="display-4">{{ amount }}€</h4>
+          </label>
         </div>
+      </ul>
+    </div>
+
+    <div class="row mt-3 text-center">
+      <div class="col text-center">
+        <a href="" class="btn text-danger btn-link mr-2"
+          >Appuyer sur <span class="g-btn border-danger">B</span> pour
+          revenir</a
+        >
+        <a href="" @click.prevent="pay" class="btn btn-primary"
+          >Appuyer sur <span class="g-btn">A</span> pour continuer</a
+        >
       </div>
     </div>
   </div>
@@ -52,13 +65,57 @@ export default {
   name: "Payment",
   data: function() {
     return {
-      amount: "",
+      choosenIndexOf: 0,
+      amounts: [1, 5, 10, 15, 20, 30],
       payment: ""
     };
   },
+  computed: {
+    a() {
+      return this.$store.state.gamepad.A;
+    },
+    b() {
+      return this.$store.state.gamepad.B;
+    },
+    left() {
+      return this.$store.state.gamepad.Left;
+    },
+    right() {
+      return this.$store.state.gamepad.Right;
+    }
+  },
+  watch: {
+    a: function(val) {
+      if (val) {
+        this.pay();
+      }
+    },
+    b: function(val) {
+      if (val) {
+        this.$router.go(-1);
+      }
+    },
+    left: function(val) {
+      if (val) {
+        if (this.amounts[this.choosenIndexOf - 1]) {
+          this.chooseAmount(this.choosenIndexOf - 1);
+        }
+      }
+    },
+    right: function(val) {
+      if (val) {
+        if (this.amounts[this.choosenIndexOf + 1]) {
+          this.chooseAmount(this.choosenIndexOf + 1);
+        }
+      }
+    }
+  },
   methods: {
+    chooseAmount: function(index) {
+      this.choosenIndexOf = index;
+    },
     pay: function() {
-      if (this.amount > 0) {
+      if (this.choosenIndexOf) {
         // ADD PAYMENT API HERE
         this.payment = {
           donator: this.$store.state.session.donator,
@@ -68,7 +125,7 @@ export default {
           date: new Date(),
           method: "Contactless",
           status: "Accepted",
-          amount: this.amount,
+          amount: this.amounts[this.choosenIndexOf],
           currency: "EUR"
         };
         this.$http

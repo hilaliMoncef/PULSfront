@@ -14,6 +14,9 @@ import Terminals from "../views/Terminals.vue";
 import Terminal from "../views/Terminal.vue";
 import EditTerminal from "../views/EditTerminal.vue";
 import AddTerminal from "../views/AddTerminal.vue";
+import Games from "../views/Games.vue";
+import EditGame from "../views/EditGame.vue";
+import AddGame from "../views/AddGame.vue";
 import Login from "../views/Login.vue";
 
 import StartTerminal from "../views/Game/StartTerminal.vue";
@@ -93,6 +96,29 @@ const routes = [
     }
   },
   {
+    path: "/games",
+    name: "games",
+    component: Games
+  },
+  {
+    path: "/game/:id/edit",
+    name: "edit-game",
+    component: EditGame,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/game/add",
+    name: "add-game",
+    component: AddGame,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
     path: "/login",
     name: "login",
     component: Login,
@@ -121,8 +147,7 @@ const routes = [
     name: "choose",
     component: GameChoice,
     meta: {
-      requiresAuth: true,
-      onlyFrom: "start"
+      requiresAuth: true
     }
   },
   {
@@ -130,8 +155,7 @@ const routes = [
     name: "payment",
     component: Payment,
     meta: {
-      requiresAuth: true,
-      onlyFrom: "choose"
+      requiresAuth: true
     }
   },
   {

@@ -34,6 +34,9 @@
           <router-link class="dropdown-item p-2 text-dark" to="/campaigns"
             >Campagnes</router-link
           >
+          <router-link class="dropdown-item p-2 text-dark" to="/games"
+            >Jeux</router-link
+          >
           <router-link class="dropdown-item p-2 text-dark" to="/customers"
             >Clients</router-link
           >

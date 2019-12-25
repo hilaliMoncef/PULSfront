@@ -29,6 +29,15 @@ export default new Vuex.Store({
       position_asso: "",
       campaign: "",
       game: null
+    },
+    gamepad: {
+      A: false,
+      B: false,
+      Right: false,
+      Left: false,
+      Top: false,
+      Bottom: false,
+      Start: false
     }
   },
   mutations: {
