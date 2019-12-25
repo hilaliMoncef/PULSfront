@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="row">
-      <video controls :src="campaign.video_url" :alt="campaign.name"></video>
+      <p>{{ campaign.video }}</p>
     </div>
     <div class="message my-4">
       {{ campaign.html_template }}

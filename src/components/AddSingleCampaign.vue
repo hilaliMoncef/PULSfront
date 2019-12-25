@@ -79,22 +79,22 @@
           >
         </div>
       </div>
+    </form>
+    <div class="row">
       <div class="col">
-        <div class="form-group">
-          <label for="video">Vidéo</label>
-          <input
-            type="file"
-            class="form-control-file"
-            aria-describedby="videoHelpId"
-            name="video"
-            ref="video"
-          />
-          <small id="videoHelpId" class="form-text text-muted"
-            >Vidéo explicative la mission de l'association.</small
-          >
+        <div class="form-group w-100">
+          <label for="name">Lien vers la vidéo</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"
+                ><font-awesome-icon icon="video"
+              /></span>
+            </div>
+            <input type="text" class="form-control" v-model="campaign.video" />
+          </div>
         </div>
       </div>
-    </form>
+    </div>
     <div class="row">
       <div class="col">
         <div class="form-group w-100">
@@ -143,7 +143,7 @@ export default {
         form.append("link", this.campaign.link);
         form.append("description", this.campaign.description);
         form.append("html_template", this.campaign.html_template);
-        form.append("video", this.$refs.video.files[0]);
+        form.append("video", this.campaign.video);
         form.append("logo", this.$refs.logo.files[0]);
         this.$http
           .post("campaign/", form, {

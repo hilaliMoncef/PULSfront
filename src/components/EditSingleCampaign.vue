@@ -7,12 +7,17 @@
       <div class="card-body">
         <h4>Médias</h4>
         <div class="d-flex">
-          <div class="col-6">
+          <div class="col-4 offset-4">
             <div class="form-group h-100 d-flex flex-column">
               <div
                 class="mb-1 flex-grow-1 d-flex align-items-center justify-content-center"
               >
-                <img :src="campaign.logo_url" :alt="campaign.name" />
+                <img
+                  :src="campaign.logo"
+                  width="150"
+                  class="mb-3"
+                  :alt="campaign.name"
+                />
               </div>
               <input
                 type="file"
@@ -28,37 +33,6 @@
                 <button
                   type="button"
                   @click.prevent="editLogo"
-                  class="btn btn-primary"
-                >
-                  Enregistrer
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="form-group h-100 d-flex flex-column">
-              <div class="mb-1 flex-grow-1 d-flex align-items-center">
-                <video
-                  controls
-                  :src="campaign.video_url"
-                  :alt="campaign.name"
-                  class="w-100"
-                />
-              </div>
-              <input
-                type="file"
-                class="form-control-file"
-                aria-describedby="videoHelpId"
-                name="video"
-                ref="video"
-              />
-              <small id="videoHelpId" class="form-text text-muted"
-                >Vidéo explicative la mission de l'association.</small
-              >
-              <div class="mt-3 text-center">
-                <button
-                  type="button"
-                  @click.prevent="editVideo"
                   class="btn btn-primary"
                 >
                   Enregistrer
@@ -135,6 +109,21 @@
     <div class="row">
       <div class="col">
         <div class="form-group w-100">
+          <label for="name">Lien vers la vidéo</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"
+                ><font-awesome-icon icon="video"
+              /></span>
+            </div>
+            <input type="text" class="form-control" v-model="campaign.video" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group w-100">
           <div class="form-group">
             <label for="html_template">HTML Template</label>
             <textarea
@@ -183,22 +172,6 @@ export default {
           console.log(err.response);
         });
     },
-    editVideo: function() {
-      let form = new FormData();
-      form.append("video", this.$refs.video.files[0]);
-      this.$http
-        .patch("campaign/" + this.campaign.id + "/", form, {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        })
-        .then(resp => {
-          this.campaign = resp.data;
-        })
-        .catch(err => {
-          console.log(err.response);
-        });
-    },
     edit: function() {
       if (this.campaign) {
         let form = new FormData();
@@ -207,6 +180,7 @@ export default {
         form.append("goal_amount", this.campaign.goal_amount);
         form.append("link", this.campaign.link);
         form.append("description", this.campaign.description);
+        form.append("video", this.campaign.video);
         form.append("html_template", this.campaign.html_template);
         this.$http
           .patch("campaign/" + this.campaign.id + "/", form)

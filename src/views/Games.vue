@@ -24,14 +24,16 @@
           <div
             class="terminal d-flex align-items-center justify-content-between"
           >
-            <div class=" px-3">
-              <img :src="game.logo" width="80" :alt="game.name" />
-            </div>
-            <div class="py-2 px-3 d-flex flex-column">
-              <h3 class="d-block mb-0">{{ game.name }}</h3>
-              <p class="mt-0 mb-2 small">
-                <strong>Description:</strong> {{ game.description }}
-              </p>
+            <div class="d-flex align-items-center">
+              <div class=" px-3">
+                <img :src="game.logo" width="80" :alt="game.name" />
+              </div>
+              <div class="py-2 px-3 d-flex flex-column">
+                <h3 class="d-block mb-0">{{ game.name }}</h3>
+                <p class="mt-0 mb-2 small">
+                  <strong>Description:</strong> {{ game.description }}
+                </p>
+              </div>
             </div>
             <div
               class="links d-flex flex-column align-items-stretch bg-light align-self-stretch justify-content-around border-left"
