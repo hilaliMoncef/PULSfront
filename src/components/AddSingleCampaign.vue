@@ -130,9 +130,6 @@ export default {
       campaign: {}
     };
   },
-  created() {
-    console.log(this.$refs);
-  },
   methods: {
     add: function() {
       if (this.campaign) {
