@@ -121,7 +121,7 @@ export default {
       this.choosenIndexOf = index;
     },
     gotoPayment: function() {
-      if (this.choosenGame) {
+      if (this.choosenGame != null) {
         this.$store.commit("saveGameChoice", this.games[this.choosenIndexOf]);
         this.$store.dispatch("updateSession");
         this.$router.push("/payment");

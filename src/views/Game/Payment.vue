@@ -115,7 +115,7 @@ export default {
       this.choosenIndexOf = index;
     },
     pay: function() {
-      if (this.choosenIndexOf) {
+      if (this.choosenIndexOf != null) {
         // ADD PAYMENT API HERE
         this.payment = {
           donator: this.$store.state.session.donator,

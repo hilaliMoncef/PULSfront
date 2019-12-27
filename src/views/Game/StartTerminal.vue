@@ -148,13 +148,15 @@ export default {
       this.choosenIndexOf = index;
     },
     gotoGameChoice: function() {
-      if (this.choosenIndexOf) {
+      if (this.choosenIndexOf != null) {
         this.$store.commit("saveCampaignChoice", {
           campaign: this.campaigns[this.choosenIndexOf],
           indexOf: this.choosenIndexOf + 1
         });
         this.$store.dispatch("startSession");
         this.$router.push("/choose");
+      } else {
+        console.error("no choice");
       }
     },
     shuffleArray: function(array) {
