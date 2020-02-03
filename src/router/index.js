@@ -19,14 +19,14 @@ import EditGame from "../views/EditGame.vue";
 import AddGame from "../views/AddGame.vue";
 import Login from "../views/Login.vue";
 
-import StartTerminal from "../views/Game/StartTerminal.vue";
-import GameChoice from "../views/Game/GameChoice.vue";
-import ShowCampaign from "../views/Game/ShowCampaign.vue";
-import StopTerminal from "../views/Game/StopTerminal.vue";
-import Payment from "../views/Game/Payment.vue";
-import Play from "../views/Game/Play.vue";
-import Endgame from "../views/Game/Endgame.vue";
-import EmailSent from "../views/Game/EmailSent.vue";
+// import StartTerminal from "../views/Game/StartTerminal.vue";
+// import GameChoice from "../views/Game/GameChoice.vue";
+// import ShowCampaign from "../views/Game/ShowCampaign.vue";
+// import StopTerminal from "../views/Game/StopTerminal.vue";
+// import Payment from "../views/Game/Payment.vue";
+// import Play from "../views/Game/Play.vue";
+// import Endgame from "../views/Game/Endgame.vue";
+// import EmailSent from "../views/Game/EmailSent.vue";
 
 Vue.use(VueRouter);
 
@@ -124,74 +124,6 @@ const routes = [
     component: Login,
     meta: {
       requiresAnon: true
-    }
-  },
-  {
-    path: "/start",
-    name: "start",
-    component: StartTerminal,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/stop",
-    name: "stop",
-    component: StopTerminal,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/choose",
-    name: "choose",
-    component: GameChoice,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/payment",
-    name: "payment",
-    component: Payment,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/watch",
-    name: "watch",
-    component: ShowCampaign,
-    meta: {
-      requiresAuth: true,
-      onlyFrom: "payment"
-    }
-  },
-  {
-    path: "/play",
-    name: "play",
-    component: Play,
-    meta: {
-      requiresAuth: true,
-      onlyFrom: "watch"
-    }
-  },
-  {
-    path: "/endgame",
-    name: "endgame",
-    component: Endgame,
-    meta: {
-      requiresAuth: true,
-      onlyFrom: "play"
-    }
-  },
-  {
-    path: "/sent",
-    name: "sent",
-    component: EmailSent,
-    meta: {
-      requiresAuth: true,
-      onlyFrom: "endgame"
     }
   },
   {

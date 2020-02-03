@@ -12,7 +12,7 @@
     </div>
     <div class="col">
       <div class="row mb-3">
-        <div class="card card-rounded bg-dark text-white">
+        <div class="card card-rounded bg-dark text-white w-100">
           <div class="card-body d-flex">
             <div class="mr-4">
               <img :src="campaign.logo" :alt="campaign.name" height="150" />

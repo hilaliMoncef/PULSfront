@@ -2,7 +2,7 @@
   <div>
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 class="display-4">Connexion</h1>
-      <p class="lead">Connectez votre terminal pour le mettre en service.</p>
+      <p class="lead">Connectez vous à l'espace d'administration.</p>
     </div>
 
     <div class="alert alert-danger" v-if="error">
@@ -67,7 +67,7 @@ export default {
       this.loading = true;
       this.$store
         .dispatch("login", this.credentials)
-        .then(() => this.$router.push("/start"))
+        .then(() => this.$router.push("/"))
         .catch(err => {
           this.loading = false;
           this.error = err.response;
