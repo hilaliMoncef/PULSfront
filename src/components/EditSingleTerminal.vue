@@ -63,6 +63,7 @@
         <div class="row form-group">
           <label
             v-for="campaign in campaigns"
+            :key="campaign.id"
             :for="campaign.id"
             :class="[
               campaignExists(campaign.id) ? 'checked' : '',
@@ -71,7 +72,6 @@
               'py-2',
               'mx-2'
             ]"
-            :key="campaign.id"
             @click.prevent="selectCampaign(campaign.id)"
           >
             <input type="radio" :value="campaign.id" />
@@ -221,3 +221,82 @@ export default {
   }
 };
 </script>
+<style>
+.checkbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #dfe2ea;
+  color: #a0a2b1;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: 0.2s ease all;
+}
+
+.checkbox input {
+  display: none;
+}
+
+.checkbox:hover {
+  color: #3751ff;
+  border-color: #3751ff;
+  cursor: pointer;
+}
+
+.checkbox .selected {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #dfe2ea;
+  transition: 0.2s ease all;
+  font-size: 12px;
+  color: transparent;
+}
+
+.checkbox:hover .selected {
+  border-color: #3751ff;
+}
+
+.checkbox .checkbox-icon {
+  text-align: center;
+}
+
+.checkbox:hover .checkbox-icon {
+  fill: #3751ff;
+}
+
+.checked {
+  border-color: #3751ff;
+  color: #3751ff;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(210, 215, 252, 1);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(210, 215, 252, 1);
+  box-shadow: 0px 0px 6px 0px rgba(210, 215, 252, 1);
+}
+
+.checked svg {
+  fill: #3751ff;
+}
+
+.checked .selected {
+  border-color: #3751ff;
+  background-color: #3751ff;
+  color: white;
+}
+
+.g-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+</style>
