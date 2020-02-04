@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <div class="col-6 offset-3">
+    <div class="col-8 offset-3">
       <div class="row">
         <h1 class="display-4 text-center">Gestion des jeux</h1>
         <p class="lead">
@@ -9,7 +9,7 @@
         </p>
       </div>
     </div>
-    <div class="col-8 offset-2 mt-4">
+    <div class="col-10 offset-1 mt-4">
       <div class="row mb-3 d-flex justify-content-end">
         <router-link
           to="/game/add"
