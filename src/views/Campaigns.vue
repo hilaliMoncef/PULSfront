@@ -17,8 +17,9 @@
           campagne</router-link
         >
       </div>
-      <div class="row">
+      <div class="row d-flex">
         <Campaign
+          class="col-4"
           v-for="campaign in campaigns"
           :campaign="campaign"
           :key="campaign.id"

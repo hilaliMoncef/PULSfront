@@ -1,37 +1,29 @@
 <template>
-  <div class="campaign card w-100 mb-3">
-    <div class="card-body d-flex align-items-center justify-content-between">
-      <div @click="showDetail" class="clickable d-flex align-items-center">
-        <div class="mr-3">
-          <img
-            :src="currentCampaign.logo"
-            :alt="currentCampaign.name"
-            width="110"
-          />
-        </div>
-        <div class="d-flex flex-column justify-content-between">
-          <h4>{{ currentCampaign.name }}</h4>
-          <p class="small my-0">
-            <strong>Objectif de collecte :</strong>
-            {{ currentCampaign.collected }}/{{ currentCampaign.goal_amount }}
-            €
-          </p>
-          <p class="small">
-            <strong>Description :</strong> {{ currentCampaign.description }}
-          </p>
-        </div>
+  <div>
+    <div @click.prevent="showDetail" class="card h-100 clickable">
+      <img
+        class="card-img-top p-3"
+        style="object-fit: contain; height:100px;"
+        :src="currentCampaign.logo"
+        :alt="currentCampaign.name"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ currentCampaign.name }}</h5>
+        <p class="card-subtitle text-muted small">
+          <strong>Objectif de collecte :</strong>
+          {{ currentCampaign.collected }}/{{ currentCampaign.goal_amount }} €
+        </p>
+        <p class="card-text">
+          {{ stripCharacters(currentCampaign.description) }}
+        </p>
       </div>
-      <div class="actions d-flex align-self-stretch small">
-        <a href="" @click.prevent="editCampaign" class="btn-rounded mr-2">
-          <font-awesome-icon icon="pen" />
-        </a>
-        <a
-          href=""
-          @click.prevent="deleteCampaign"
-          class="btn-rounded text-danger"
+      <div class="card-footer d-flex justify-content-between">
+        <a href="" class="text-primary" @click.prevent="editCampaign"
+          >Modifier</a
         >
-          <font-awesome-icon icon="times" />
-        </a>
+        <a href="" class="text-danger" @click.prevent="deleteCampaign"
+          >Supprimer</a
+        >
       </div>
     </div>
   </div>
@@ -48,6 +40,9 @@ export default {
   },
   mounted: function() {},
   methods: {
+    stripCharacters: function(text) {
+      return text > 50 ? text.substring(0, 50) + ".." : text;
+    },
     showDetail: function() {
       this.$router.push({
         name: "campaign",
@@ -79,7 +74,5 @@ export default {
   border: 2px solid;
   width: 30px;
   height: 30px;
-}
-.btn-rounded:hover {
 }
 </style>

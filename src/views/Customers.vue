@@ -19,43 +19,37 @@
           <span>Nouveau client</span>
         </router-link>
       </div>
-      <div class="row mb-3" v-for="customer in customers" :key="customer.id">
-        <div class="terminal card w-100">
-          <div
-            class="terminal d-flex align-items-center justify-content-between"
-          >
-            <div class="clickable py-2 px-3 d-flex flex-column">
-              <h3 class="d-block mb-0">{{ customer.company }}</h3>
-              <p class="mt-0 mb-2 small">
-                <strong>Contact:</strong> {{ customer.representative }}
+      <div class="row d-flex">
+        <div class="col-4" v-for="customer in customers" :key="customer.id">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ customer.company }}</h5>
+              <p class="card-subtitle text-muted">
+                {{ customer.representative }}
               </p>
-              <p>
+              <p class="card-text">
                 <span class="badge badge-success mr-2" v-if="customer.is_active"
                   >Activé</span
                 >
                 <span class="badge badge-danger mr-2" v-else>Désactivé</span>
               </p>
             </div>
-            <div
-              class="links d-flex flex-column align-items-stretch bg-light align-self-stretch justify-content-around border-left"
-            >
+            <div class="card-footer d-flex justify-content-between">
               <a
                 href=""
                 @click.prevent="deactivateClient(customer.id)"
                 v-if="customer.is_active"
-                class="text-danger px-3"
-                >Désactiver le client</a
+                class="text-danger"
+                >Désactiver</a
               >
               <a
                 href=""
                 @click.prevent="activateClient(customer.id)"
                 v-else
-                class="text-danger px-3"
-                >Activer le client</a
+                class="text-danger"
+                >Activer</a
               >
-              <a href="" @click.prevent="editClient(customer.id)" class="px-3"
-                >Modifier le client</a
-              >
+              <a href="" @click.prevent="editClient(customer.id)">Modifier</a>
             </div>
           </div>
         </div>

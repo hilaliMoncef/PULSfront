@@ -19,32 +19,29 @@
           <span>Nouveau jeu</span>
         </router-link>
       </div>
-      <div class="row mb-3" v-for="game in games" :key="game.id">
-        <div class="terminal card w-100">
-          <div
-            class="terminal d-flex align-items-center justify-content-between"
-          >
-            <div class="d-flex align-items-center">
-              <div class=" px-3">
-                <img :src="game.logo" width="80" :alt="game.name" />
-              </div>
-              <div class="py-2 px-3 d-flex flex-column">
-                <h3 class="d-block mb-0">{{ game.name }}</h3>
-                <p class="mt-0 mb-2 small">
-                  <strong>Description:</strong> {{ game.description }}
-                </p>
-              </div>
+      <div class="row d-flex">
+        <div class="col-4" v-for="game in games" :key="game.id">
+          <div class="card h-100">
+            <img
+              class="card-img-top p-3"
+              style="object-fit: contain; height:100px;"
+              :src="game.logo"
+              :alt="game.name"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ game.name }}</h5>
+              <p class="card-text">
+                {{ stripCharacters(game.description) }}
+              </p>
             </div>
-            <div
-              class="links d-flex flex-column align-items-stretch bg-light align-self-stretch justify-content-around border-left"
-            >
-              <a href="" @click.prevent="editGame(game.id)" class="px-3"
+            <div class="card-footer d-flex justify-content-between">
+              <a href="" class="text-primary" @click.prevent="editGame(game.id)"
                 >Modifier</a
               >
               <a
                 href=""
+                class="text-danger"
                 @click.prevent="deleteGame(game.id)"
-                class="px-3 text-danger"
                 >Supprimer</a
               >
             </div>
@@ -67,6 +64,9 @@ export default {
     this.getGames();
   },
   methods: {
+    stripCharacters: function(text) {
+      return text > 50 ? text.substring(0, 50) + ".." : text;
+    },
     getGames: function() {
       this.$http.get("game/").then(resp => {
         this.games = resp.data;
