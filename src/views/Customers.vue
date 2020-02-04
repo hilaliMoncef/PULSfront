@@ -24,7 +24,7 @@
           <div class="card h-100">
             <div class="card-body">
               <h5 class="card-title">{{ customer.company }}</h5>
-              <p class="card-subtitle text-muted">
+              <p class="card-subtitle text-muted small">
                 {{ customer.representative }}
               </p>
               <p class="card-text">
