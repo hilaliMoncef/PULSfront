@@ -21,18 +21,20 @@
       </div>
       <div class="row d-flex">
         <div class="col-4" v-for="game in games" :key="game.id">
-          <div class="card h-100">
-            <img
-              class="card-img-top p-3"
-              style="object-fit: contain; height:100px;"
-              :src="game.logo"
-              :alt="game.name"
-            />
-            <div class="card-body">
-              <h5 class="card-title">{{ game.name }}</h5>
-              <p class="card-text">
-                {{ stripCharacters(game.description) }}
-              </p>
+          <div class="card h-100 d-flex flex-column justify-content-between">
+            <div>
+              <img
+                class="card-img-top p-3"
+                style="object-fit: contain; height:100px;"
+                :src="game.logo"
+                :alt="game.name"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{ game.name }}</h5>
+                <p class="card-text">
+                  {{ stripCharacters(game.description) }}
+                </p>
+              </div>
             </div>
             <div class="card-footer d-flex justify-content-between">
               <a href="" class="text-primary" @click.prevent="editGame(game.id)"
@@ -65,7 +67,11 @@ export default {
   },
   methods: {
     stripCharacters: function(text) {
-      return text > 50 ? text.substring(0, 50) + ".." : text;
+      if (text.length > 70) {
+        return text.substring(0, 70) + "..";
+      } else {
+        return text;
+      }
     },
     getGames: function() {
       this.$http.get("game/").then(resp => {
