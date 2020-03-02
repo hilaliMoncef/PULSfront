@@ -65,7 +65,7 @@
               name="text1"
               class="mb-2"
               rows="4"
-              ref="text1"
+              ref="action-photo1"
               v-model="campaign.text1"
             ></textarea>
             <div class="upload-btn-wrapper">
@@ -76,7 +76,7 @@
                 type="file"
                 id="photo1"
                 name="photo1"
-                ref="action-photo1"
+                ref="photo1"
                 required="required"
                 @change="handleFileChange"
               />
@@ -316,10 +316,7 @@ export default {
       this.$refs["text-" + e.target.id].classList.add("btn-success");
 
       let form = new FormData();
-      form.append(
-        this.$refs[e.target.id].name,
-        this.$refs[e.target.id].files[0]
-      );
+      form.append(e.target.id, this.$refs[e.target.id].files[0]);
       form.append(
         this.$refs["action-" + e.target.id].id,
         this.$refs["action-" + e.target.id].value
