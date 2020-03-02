@@ -3,7 +3,7 @@
     class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-5 bg-white border-bottom shadow-sm"
   >
     <h5 class="my-0 mr-md-auto font-weight-normal">
-      <router-link to="/">PULS ADMIN</router-link>
+      <router-link to="/">Heroic Admin</router-link>
     </h5>
     <nav class="my-2 my-md-0 mr-md-3">
       <span v-if="isLoggedIn && isAdmin">

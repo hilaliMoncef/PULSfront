@@ -83,7 +83,7 @@
     <div class="row">
       <div class="col">
         <div class="form-group w-100">
-          <label for="name">Lien vers la vidéo</label>
+          <label for="name">ID de la vidéo Youtube</label>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="basic-addon1"
@@ -99,14 +99,104 @@
       <div class="col">
         <div class="form-group w-100">
           <div class="form-group">
-            <label for="html_template">HTML Template</label>
-            <textarea
-              class="form-control"
-              v-model="campaign.html_template"
-            ></textarea>
-            <small id="htmlHelp" class="form-text text-muted"
-              >Template HTML qui apparaît à la fin de chaque partie.</small
-            >
+            <label for="html_template">Montants de donations</label>
+            <div class="d-flex justify-content-between">
+              <div class="col d-flex flex-column align-items-center card py-3">
+                <h3>1€</h3>
+                <div class="upload-btn-wrapper">
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    ref="text-photo1"
+                  >
+                    Ajouter une photo
+                  </button>
+                  <input
+                    type="file"
+                    id="photo1"
+                    name="photo1"
+                    ref="photo1"
+                    required="required"
+                    @change="handleFileChange"
+                  />
+                </div>
+              </div>
+              <div class="col d-flex flex-column align-items-center card py-3">
+                <h3>5€</h3>
+                <div class="upload-btn-wrapper">
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    ref="text-photo5"
+                  >
+                    Ajouter une photo
+                  </button>
+                  <input
+                    type="file"
+                    id="photo5"
+                    name="photo5"
+                    ref="photo5"
+                    required="required"
+                    @change="handleFileChange"
+                  />
+                </div>
+              </div>
+              <div class="col d-flex flex-column align-items-center card py-3">
+                <h3>10€</h3>
+                <div class="upload-btn-wrapper">
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    ref="text-photo10"
+                  >
+                    Ajouter une photo
+                  </button>
+                  <input
+                    type="file"
+                    id="photo10"
+                    name="photo10"
+                    ref="photo10"
+                    required="required"
+                    @change="handleFileChange"
+                  />
+                </div>
+              </div>
+              <div class="col d-flex flex-column align-items-center card py-3">
+                <h3>20€</h3>
+                <div class="upload-btn-wrapper">
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    ref="text-photo20"
+                  >
+                    Ajouter une photo
+                  </button>
+                  <input
+                    type="file"
+                    id="photo20"
+                    name="photo20"
+                    ref="photo20"
+                    required="required"
+                    @change="handleFileChange"
+                  />
+                </div>
+              </div>
+              <div class="col d-flex flex-column align-items-center card py-3">
+                <h3>30€</h3>
+                <div class="upload-btn-wrapper">
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    ref="text-photo30"
+                  >
+                    Ajouter une photo
+                  </button>
+                  <input
+                    type="file"
+                    id="photo30"
+                    name="photo30"
+                    ref="photo30"
+                    required="required"
+                    @change="handleFileChange"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -131,6 +221,11 @@ export default {
     };
   },
   methods: {
+    handleFileChange(e) {
+      this.$refs["text-" + e.target.id].innerText = "1 fichier sélectionné";
+      this.$refs["text-" + e.target.id].classList.remove("btn-outline-danger");
+      this.$refs["text-" + e.target.id].classList.add("btn-success");
+    },
     add: function() {
       if (this.campaign) {
         let form = new FormData();
@@ -139,9 +234,13 @@ export default {
         form.append("goal_amount", this.campaign.goal_amount);
         form.append("link", this.campaign.link);
         form.append("description", this.campaign.description);
-        form.append("html_template", this.campaign.html_template);
         form.append("video", this.campaign.video);
         form.append("logo", this.$refs.logo.files[0]);
+        form.append("photo1", this.$refs.photo1.files[0]);
+        form.append("photo5", this.$refs.photo5.files[0]);
+        form.append("photo10", this.$refs.photo10.files[0]);
+        form.append("photo20", this.$refs.photo20.files[0]);
+        form.append("photo30", this.$refs.photo30.files[0]);
         this.$http
           .post("campaign/", form, {
             headers: {
@@ -160,3 +259,24 @@ export default {
   }
 };
 </script>
+
+<style>
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper .btn {
+  cursor: pointer;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+</style>

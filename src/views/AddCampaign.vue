@@ -9,7 +9,7 @@
         </p>
       </div>
     </div>
-    <div class="col-8 offset-2">
+    <div class="col-10 offset-1">
       <AddSingleCampaign></AddSingleCampaign>
     </div>
   </div>

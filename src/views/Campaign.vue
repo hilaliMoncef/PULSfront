@@ -56,6 +56,40 @@
         </div>
       </div>
     </div>
+    <h3 class="mt-4">Actions associatives</h3>
+    <div class="row d-flex align-items-stretch">
+      <div class="col d-flex flex-column align-items-center mt-3">
+        <div class="card card-rounded py-3 px-3 h-100">
+          <h3 class="text-center">1€</h3>
+          <img :src="campaign.photo1" class="w-100" />
+        </div>
+      </div>
+      <div class="col d-flex flex-column align-items-center mt-3">
+        <div class=" card card-rounded py-3 px-3 h-100">
+          <h3 class="text-center">5€</h3>
+          <img :src="campaign.photo5" class="w-100" />
+        </div>
+      </div>
+      <div class="col d-flex flex-column align-items-center mt-3">
+        <div class=" card card-rounded py-3 px-3 h-100">
+          <h3 class="text-center">10€</h3>
+          <img :src="campaign.photo10" class="w-100" />
+        </div>
+      </div>
+      <div class="col d-flex flex-column align-items-center mt-3">
+        <div class=" card card-rounded py-3 px-3 h-100">
+          <h3 class="text-center">20€</h3>
+          <img :src="campaign.photo20" class="w-100" />
+        </div>
+      </div>
+      <div class="col d-flex flex-column align-items-center mt-3">
+        <div class=" card card-rounded py-3 px-3 h-100">
+          <h3 class="text-center">30€</h3>
+          <img :src="campaign.photo30" class="w-100" />
+        </div>
+      </div>
+    </div>
+    <h3 class="my-4">Statistiques</h3>
     <div class="row my-3">
       <div class="col-8">
         <div class="card card-rounded">
@@ -93,7 +127,7 @@
         <div class="card card-rounded">
           <div class="card-body">
             <h3 class="my-3">Vidéo</h3>
-            <video :src="campaign.video_url" controls class="w-100"></video>
+            <youtube :video-id="campaign.video_url" class="w-100"></youtube>
           </div>
         </div>
       </div>

@@ -80,7 +80,12 @@
             <tbody>
               <tr v-for="donation in donations" :key="donation.id">
                 <td class="font-weight-bold">{{ donation.donator.id }}</td>
-                <td>{{ donation.campaign.name }}</td>
+                <td>
+                  <router-link
+                    :to="'/campaign/' + donation.campaign.id + '/'"
+                    >{{ donation.campaign.name }}</router-link
+                  >
+                </td>
                 <td>{{ donation.amount }} €</td>
                 <td>{{ donation.game.name }}</td>
               </tr>

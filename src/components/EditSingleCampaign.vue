@@ -43,6 +43,131 @@
         </div>
       </div>
     </form>
+    <form
+      class="row card card-rounded mb-5 d-flex align-items-stretch"
+      enctype="multipart/form-data"
+    >
+      <div class="card-body">
+        <h4>Actions</h4>
+        <div class="d-flex">
+          <div class="col d-flex flex-column align-items-center card py-3">
+            <h3>1€</h3>
+            <img
+              :src="campaign.photo1"
+              width="100"
+              height="100"
+              style="object-fit: contain;"
+              class="rounded my-3 mx-auto d-block"
+            />
+            <div class="upload-btn-wrapper">
+              <button class="btn btn-outline-warning btn-sm" ref="text-photo1">
+                Modifier la photo
+              </button>
+              <input
+                type="file"
+                id="photo1"
+                name="photo1"
+                ref="photo1"
+                required="required"
+                @change="handleFileChange"
+              />
+            </div>
+          </div>
+          <div class="col d-flex flex-column align-items-center card py-3">
+            <h3>5€</h3>
+            <img
+              :src="campaign.photo5"
+              width="100"
+              height="100"
+              style="object-fit: contain;"
+              class="rounded my-3 mx-auto d-block"
+            />
+            <div class="upload-btn-wrapper">
+              <button class="btn btn-outline-warning btn-sm" ref="text-photo5">
+                Modifier la photo
+              </button>
+              <input
+                type="file"
+                id="photo5"
+                name="photo5"
+                ref="photo5"
+                required="required"
+                @change="handleFileChange"
+              />
+            </div>
+          </div>
+          <div class="col d-flex flex-column align-items-center card py-3">
+            <h3>10€</h3>
+            <img
+              :src="campaign.photo10"
+              width="100"
+              height="100"
+              style="object-fit: contain;"
+              class="rounded my-3 mx-auto d-block"
+            />
+            <div class="upload-btn-wrapper">
+              <button class="btn btn-outline-warning btn-sm" ref="text-photo10">
+                Modifier la photo
+              </button>
+              <input
+                type="file"
+                id="photo10"
+                name="photo10"
+                ref="photo10"
+                required="required"
+                @change="handleFileChange"
+              />
+            </div>
+          </div>
+          <div class="col d-flex flex-column align-items-center card py-3">
+            <h3>20€</h3>
+            <img
+              :src="campaign.photo20"
+              width="100"
+              height="100"
+              style="object-fit: contain;"
+              class="rounded my-3 mx-auto d-block"
+            />
+            <div class="upload-btn-wrapper">
+              <button class="btn btn-outline-warning btn-sm" ref="text-photo20">
+                Modifier la photo
+              </button>
+              <input
+                type="file"
+                id="photo20"
+                name="photo20"
+                ref="photo20"
+                required="required"
+                @change="handleFileChange"
+              />
+            </div>
+          </div>
+          <div class="col d-flex flex-column align-items-center card py-3">
+            <h3>30€</h3>
+            <img
+              :src="campaign.photo30"
+              width="100"
+              height="100"
+              style="object-fit: contain;"
+              class="rounded my-3 mx-auto d-block"
+            />
+            <div class="upload-btn-wrapper">
+              <button class="btn btn-outline-warning btn-sm" ref="text-photo30">
+                Modifier la photo
+              </button>
+              <input
+                type="file"
+                id="photo30"
+                name="photo30"
+                ref="photo30"
+                required="required"
+                @change="handleFileChange"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
     <div class="row">
       <div class="col-9">
         <div class="form-group w-100">
@@ -121,22 +246,6 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <div class="form-group w-100">
-          <div class="form-group">
-            <label for="html_template">HTML Template</label>
-            <textarea
-              class="form-control"
-              v-model="campaign.html_template"
-            ></textarea>
-            <small id="htmlHelp" class="form-text text-muted"
-              >Template HTML qui apparaît à la fin de chaque partie.</small
-            >
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="row my-3">
       <div class="col text-center">
         <router-link to="/campaigns" class="btn btn-link">Retour</router-link>
@@ -156,6 +265,36 @@ export default {
     return {};
   },
   methods: {
+    handleFileChange(e) {
+      this.$refs["text-" + e.target.id].innerText = "Enregistrement...";
+      this.$refs["text-" + e.target.id].classList.remove("btn-outline-warning");
+      this.$refs["text-" + e.target.id].classList.add("btn-success");
+
+      console.log(this.$refs[e.target.id].name);
+
+      let form = new FormData();
+      form.append(
+        this.$refs[e.target.id].name,
+        this.$refs[e.target.id].files[0]
+      );
+      this.$http
+        .patch("campaign/" + this.campaign.id + "/", form, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(resp => {
+          this.campaign = resp.data;
+          this.$refs["text-" + e.target.id].classList.remove("btn-success");
+          this.$refs["text-" + e.target.id].classList.add(
+            "btn-outline-warning"
+          );
+          this.$refs["text-" + e.target.id].innerText = "Modifier la photo";
+        })
+        .catch(err => {
+          console.log(err.response);
+        });
+    },
     editLogo: function() {
       let form = new FormData();
       form.append("logo", this.$refs.logo.files[0]);
