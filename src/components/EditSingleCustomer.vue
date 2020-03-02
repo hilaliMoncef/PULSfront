@@ -1,5 +1,37 @@
 <template>
   <form class="w-100">
+    <div class="row" v-if="error">
+      <div
+        class="alert alert-danger w-100 alert-dismissible fade show"
+        role="alert"
+      >
+        <strong>Erreur : </strong> {{ error }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <div class="row" v-if="success">
+      <div
+        class="alert alert-success w-100 alert-dismissible fade show"
+        role="alert"
+      >
+        <strong>Succès : </strong> {{ success }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
     <div class="row">
       <div class="col-12">
         <div class="row">
@@ -79,15 +111,29 @@
 export default {
   name: "EditCustomerForm",
   props: ["customer"],
+  data: function() {
+    return {
+      error: "",
+      success: ""
+    };
+  },
   methods: {
     edit: function() {
-      if (this.customer) {
+      if (
+        this.customer.company &&
+        this.customer.representative &&
+        this.customer.sales_type
+      ) {
         this.$http
           .put("customer/" + this.customer.id + "/", this.customer)
           .then(resp => {
             this.customer = resp.data;
+            this.success =
+              "Le client " + this.customer.company + " a été mis à jour.";
           })
           .catch();
+      } else {
+        this.error = "Des champs sont manquants.";
       }
     }
   }

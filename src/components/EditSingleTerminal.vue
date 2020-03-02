@@ -1,7 +1,39 @@
 <template>
   <form class="w-100">
+    <div class="row" v-if="errors">
+      <div
+        class="alert alert-danger w-100 alert-dismissible fade show"
+        role="alert"
+      >
+        <strong>Erreur :</strong> {{ errors }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <div class="row" v-if="success">
+      <div
+        class="alert alert-success w-100 alert-dismissible fade show"
+        role="alert"
+      >
+        <strong>Succès : </strong> {{ success }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
     <div class="row">
-      <div class="col-9">
+      <div class="col-12">
         <div class="form-group w-100">
           <label for="name">Nom du terminal</label>
           <input
@@ -15,16 +47,37 @@
           >
         </div>
       </div>
-      <div class="col-3">
+    </div>
+    <div class="row">
+      <div class="col-6">
         <div class="form-group w-100">
-          <label for="owner">Propriétaire</label>
+          <label for="owner">Username</label>
           <input
             type="text"
             class="form-control"
             disabled
             aria-describedby="ownerHelp"
-            v-model="terminal.owner"
+            v-model="terminal.owner.username"
           />
+          <small id="nameHelp" class="form-text text-muted"
+            >Le username attribué au terminal.</small
+          >
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group w-100">
+          <label for="owner">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            disabled
+            aria-describedby="ownerHelp"
+            v-model="terminal.owner.password"
+          />
+          <small id="nameHelp" class="form-text text-muted"
+            >Par définition, il n'est pas possible de changer ou de retrouver le
+            mot de passe. En cas de problèmes, il faut recréer un terminal.
+          </small>
         </div>
       </div>
     </div>
@@ -160,8 +213,8 @@ export default {
   props: ["terminal", "campaigns", "games"],
   data: function() {
     return {
-      success: false,
-      errors: false,
+      success: "",
+      errors: "",
       maxGames: this.$store.state.maxGames,
       maxCampaigns: this.$store.state.maxCampaigns
     };
@@ -204,17 +257,18 @@ export default {
     },
     edit: function() {
       if (this.terminal) {
-        this.success = false;
-        this.errors = false;
+        this.success = "";
+        this.error = "  ";
         this.$http
           .put("terminal/" + this.terminal.id + "/", this.terminal)
           .then(resp => {
-            this.success = true;
             this.terminal = resp.data;
+            this.success =
+              "La borne " + this.terminal.name + " a été mise à jour.";
           })
           .catch(err => {
-            this.errors = true;
-            console.log(err.response);
+            console.log(err);
+            this.errors = "Une erreur s'est produite. Veuillez réessayer.";
           });
       }
     }

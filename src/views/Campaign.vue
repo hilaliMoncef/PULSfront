@@ -61,31 +61,36 @@
       <div class="col d-flex flex-column align-items-center mt-3">
         <div class="card card-rounded py-3 px-3 h-100">
           <h3 class="text-center">1€</h3>
-          <img :src="campaign.photo1" class="w-100" />
+          <img :src="campaign.photo1" class="w-100 mb-2" />
+          <p class="small">{{ campaign.text1 }}</p>
         </div>
       </div>
       <div class="col d-flex flex-column align-items-center mt-3">
         <div class=" card card-rounded py-3 px-3 h-100">
           <h3 class="text-center">5€</h3>
-          <img :src="campaign.photo5" class="w-100" />
+          <img :src="campaign.photo5" class="w-100 mb-2" />
+          <p class="small">{{ campaign.text5 }}</p>
         </div>
       </div>
       <div class="col d-flex flex-column align-items-center mt-3">
         <div class=" card card-rounded py-3 px-3 h-100">
           <h3 class="text-center">10€</h3>
-          <img :src="campaign.photo10" class="w-100" />
+          <img :src="campaign.photo10" class="w-100 mb-2" />
+          <p class="small">{{ campaign.text10 }}</p>
         </div>
       </div>
       <div class="col d-flex flex-column align-items-center mt-3">
         <div class=" card card-rounded py-3 px-3 h-100">
           <h3 class="text-center">20€</h3>
-          <img :src="campaign.photo20" class="w-100" />
+          <img :src="campaign.photo20" class="w-100 mb-2" />
+          <p class="small">{{ campaign.text20 }}</p>
         </div>
       </div>
       <div class="col d-flex flex-column align-items-center mt-3">
         <div class=" card card-rounded py-3 px-3 h-100">
           <h3 class="text-center">30€</h3>
-          <img :src="campaign.photo30" class="w-100" />
+          <img :src="campaign.photo30" class="w-100 mb-2" />
+          <p class="small">{{ campaign.text30 }}</p>
         </div>
       </div>
     </div>

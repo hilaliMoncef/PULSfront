@@ -59,6 +59,15 @@
               style="object-fit: contain;"
               class="rounded my-3 mx-auto d-block"
             />
+            <textarea
+              style="font-size: 12px;"
+              id="text1"
+              name="text1"
+              class="mb-2"
+              rows="4"
+              ref="text1"
+              v-model="campaign.text1"
+            ></textarea>
             <div class="upload-btn-wrapper">
               <button class="btn btn-outline-warning btn-sm" ref="text-photo1">
                 Modifier la photo
@@ -67,7 +76,7 @@
                 type="file"
                 id="photo1"
                 name="photo1"
-                ref="photo1"
+                ref="action-photo1"
                 required="required"
                 @change="handleFileChange"
               />
@@ -82,6 +91,15 @@
               style="object-fit: contain;"
               class="rounded my-3 mx-auto d-block"
             />
+            <textarea
+              style="font-size: 12px;"
+              id="text5"
+              name="text5"
+              class="mb-2"
+              rows="4"
+              ref="action-photo5"
+              v-model="campaign.text5"
+            ></textarea>
             <div class="upload-btn-wrapper">
               <button class="btn btn-outline-warning btn-sm" ref="text-photo5">
                 Modifier la photo
@@ -105,6 +123,15 @@
               style="object-fit: contain;"
               class="rounded my-3 mx-auto d-block"
             />
+            <textarea
+              style="font-size: 12px;"
+              id="text10"
+              name="text10"
+              class="mb-2"
+              ref="action-photo10"
+              rows="4"
+              v-model="campaign.text10"
+            ></textarea>
             <div class="upload-btn-wrapper">
               <button class="btn btn-outline-warning btn-sm" ref="text-photo10">
                 Modifier la photo
@@ -128,6 +155,15 @@
               style="object-fit: contain;"
               class="rounded my-3 mx-auto d-block"
             />
+            <textarea
+              style="font-size: 12px;"
+              id="text20"
+              name="text20"
+              ref="action-photo20"
+              class="mb-2"
+              rows="4"
+              v-model="campaign.text20"
+            ></textarea>
             <div class="upload-btn-wrapper">
               <button class="btn btn-outline-warning btn-sm" ref="text-photo20">
                 Modifier la photo
@@ -136,7 +172,7 @@
                 type="file"
                 id="photo20"
                 name="photo20"
-                ref="photo20"
+                ref="action-photo20"
                 required="required"
                 @change="handleFileChange"
               />
@@ -151,6 +187,15 @@
               style="object-fit: contain;"
               class="rounded my-3 mx-auto d-block"
             />
+            <textarea
+              style="font-size: 12px;"
+              id="text30"
+              name="text30"
+              ref="action-photo30"
+              class="mb-2"
+              rows="4"
+              v-model="campaign.text30"
+            ></textarea>
             <div class="upload-btn-wrapper">
               <button class="btn btn-outline-warning btn-sm" ref="text-photo30">
                 Modifier la photo
@@ -270,12 +315,14 @@ export default {
       this.$refs["text-" + e.target.id].classList.remove("btn-outline-warning");
       this.$refs["text-" + e.target.id].classList.add("btn-success");
 
-      console.log(this.$refs[e.target.id].name);
-
       let form = new FormData();
       form.append(
         this.$refs[e.target.id].name,
         this.$refs[e.target.id].files[0]
+      );
+      form.append(
+        this.$refs["action-" + e.target.id].id,
+        this.$refs["action-" + e.target.id].value
       );
       this.$http
         .patch("campaign/" + this.campaign.id + "/", form, {

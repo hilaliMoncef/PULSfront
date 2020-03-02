@@ -20,7 +20,55 @@
         </router-link>
       </div>
       <div class="row d-flex">
-        <div class="col-4" v-for="game in games" :key="game.id">
+        <div class="col-4 mb-4" v-for="game in games" :key="game.id">
+          <!-- Modal for deleting -->
+          <div
+            class="modal fade"
+            :id="'deleteModal-' + game.id"
+            tabindex="-1"
+            role="dialog"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">
+                    Etes-vous sûr de vouloir supprimer
+                    <strong>{{ game.name }}</strong> ?
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Cette action est irréversible.</p>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Fermer
+                  </button>
+                  <button
+                    type="button"
+                    data-dismiss="modal"
+                    @click.prevent="deleteGame(game.id)"
+                    class="btn btn-danger"
+                  >
+                    Supprimer
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- endmodal -->
           <div class="card h-100 d-flex flex-column justify-content-between">
             <div>
               <img
@@ -43,7 +91,8 @@
               <a
                 href=""
                 class="text-danger"
-                @click.prevent="deleteGame(game.id)"
+                data-toggle="modal"
+                :data-target="'#deleteModal-' + game.id"
                 >Supprimer</a
               >
             </div>
@@ -80,6 +129,11 @@ export default {
     },
     editGame: function(id) {
       this.$router.push("/game/" + id + "/edit");
+    },
+    deleteGame: function(id) {
+      this.$http.delete("/game/" + id + "/").then(() => {
+        this.getGames();
+      });
     }
   }
 };

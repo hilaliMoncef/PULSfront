@@ -20,7 +20,11 @@
         </router-link>
       </div>
       <div class="row d-flex">
-        <div class="col-4" v-for="customer in customers" :key="customer.id">
+        <div
+          class="col-4 mb-3"
+          v-for="customer in customers"
+          :key="customer.id"
+        >
           <div class="card h-100">
             <div class="card-body">
               <h5 class="card-title">{{ customer.company }}</h5>

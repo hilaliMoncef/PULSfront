@@ -103,6 +103,15 @@
             <div class="d-flex justify-content-between">
               <div class="col d-flex flex-column align-items-center card py-3">
                 <h3>1€</h3>
+                <textarea
+                  style="font-size: 12px;"
+                  id="text1"
+                  name="text1"
+                  class="mb-2"
+                  rows="4"
+                  ref="text1"
+                  v-model="campaign.text1"
+                ></textarea>
                 <div class="upload-btn-wrapper">
                   <button
                     class="btn btn-outline-danger btn-sm"
@@ -122,6 +131,15 @@
               </div>
               <div class="col d-flex flex-column align-items-center card py-3">
                 <h3>5€</h3>
+                <textarea
+                  style="font-size: 12px;"
+                  id="text5"
+                  name="text5"
+                  class="mb-2"
+                  rows="4"
+                  ref="action-photo5"
+                  v-model="campaign.text5"
+                ></textarea>
                 <div class="upload-btn-wrapper">
                   <button
                     class="btn btn-outline-danger btn-sm"
@@ -141,6 +159,15 @@
               </div>
               <div class="col d-flex flex-column align-items-center card py-3">
                 <h3>10€</h3>
+                <textarea
+                  style="font-size: 12px;"
+                  id="text10"
+                  name="text10"
+                  class="mb-2"
+                  ref="action-photo10"
+                  rows="4"
+                  v-model="campaign.text10"
+                ></textarea>
                 <div class="upload-btn-wrapper">
                   <button
                     class="btn btn-outline-danger btn-sm"
@@ -160,6 +187,15 @@
               </div>
               <div class="col d-flex flex-column align-items-center card py-3">
                 <h3>20€</h3>
+                <textarea
+                  style="font-size: 12px;"
+                  id="text20"
+                  name="text20"
+                  ref="action-photo20"
+                  class="mb-2"
+                  rows="4"
+                  v-model="campaign.text20"
+                ></textarea>
                 <div class="upload-btn-wrapper">
                   <button
                     class="btn btn-outline-danger btn-sm"
@@ -179,6 +215,15 @@
               </div>
               <div class="col d-flex flex-column align-items-center card py-3">
                 <h3>30€</h3>
+                <textarea
+                  style="font-size: 12px;"
+                  id="text30"
+                  name="text30"
+                  ref="action-photo30"
+                  class="mb-2"
+                  rows="4"
+                  v-model="campaign.text30"
+                ></textarea>
                 <div class="upload-btn-wrapper">
                   <button
                     class="btn btn-outline-danger btn-sm"
@@ -241,6 +286,11 @@ export default {
         form.append("photo10", this.$refs.photo10.files[0]);
         form.append("photo20", this.$refs.photo20.files[0]);
         form.append("photo30", this.$refs.photo30.files[0]);
+        form.append("text1", this.campaign.text1);
+        form.append("text5", this.campaign.text5);
+        form.append("text10", this.campaign.text10);
+        form.append("text20", this.campaign.text20);
+        form.append("text30", this.campaign.text30);
         this.$http
           .post("campaign/", form, {
             headers: {

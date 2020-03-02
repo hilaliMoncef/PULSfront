@@ -12,7 +12,11 @@
           alt="Console"
         />
         <div class="d-flex flex-column justify-content-between">
-          <strong>{{ currentTerminal.name }}</strong>
+          <div class="d-flex align-items-center">
+            <strong>{{ currentTerminal.name }}</strong>
+            <span class="mx-2">|</span>
+            <span>{{ currentTerminal.owner.customer.company }}</span>
+          </div>
           <p class="small my-1">
             Campagne:
             <span
@@ -38,7 +42,7 @@
             v-if="currentTerminal.is_active"
             >Activé</span
           >
-          <span class="badge badge-danger my-1" v-else>Inactive</span>
+          <span class="badge badge-danger my-1" v-else>Désactivé</span>
           <span class="badge badge-success my-1" v-if="currentTerminal.is_on"
             >Allumé</span
           >
@@ -48,7 +52,6 @@
             v-if="currentTerminal.is_playing"
             >En jeu</span
           >
-          <span class="badge badge-warning my-1" v-else>En attente</span>
         </div>
       </div>
       <div
