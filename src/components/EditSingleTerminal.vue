@@ -49,7 +49,22 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-4">
+        <div class="form-group w-100">
+          <label for="owner">Client</label>
+          <input
+            type="text"
+            class="form-control"
+            disabled
+            aria-describedby="ownerHelp"
+            v-model="customer.company"
+          />
+          <small id="nameHelp" class="form-text text-muted"
+            >Le client rattaché au terminal.</small
+          >
+        </div>
+      </div>
+      <div class="col-4">
         <div class="form-group w-100">
           <label for="owner">Username</label>
           <input
@@ -57,14 +72,14 @@
             class="form-control"
             disabled
             aria-describedby="ownerHelp"
-            v-model="terminal.owner.username"
+            v-model="user.username"
           />
           <small id="nameHelp" class="form-text text-muted"
             >Le username attribué au terminal.</small
           >
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-4">
         <div class="form-group w-100">
           <label for="owner">Password</label>
           <input
@@ -72,7 +87,7 @@
             class="form-control"
             disabled
             aria-describedby="ownerHelp"
-            v-model="terminal.owner.password"
+            v-model="user.password"
           />
           <small id="nameHelp" class="form-text text-muted"
             >Par définition, il n'est pas possible de changer ou de retrouver le
@@ -210,7 +225,7 @@
 <script>
 export default {
   name: "EditTerminalForm",
-  props: ["terminal", "campaigns", "games"],
+  props: ["terminal", "campaigns", "games", "user", "customer"],
   data: function() {
     return {
       success: "",
@@ -258,7 +273,7 @@ export default {
     edit: function() {
       if (this.terminal) {
         this.success = "";
-        this.error = "  ";
+        this.errors = "";
         this.$http
           .put("terminal/" + this.terminal.id + "/", this.terminal)
           .then(resp => {

@@ -14,6 +14,8 @@
         :terminal="terminal"
         :campaigns="campaigns"
         :games="games"
+        :user="user"
+        :customer="customer"
       ></EditSingleTerminal>
     </div>
   </div>
@@ -31,7 +33,9 @@ export default {
     return {
       terminal: "",
       campaigns: {},
-      games: {}
+      games: {},
+      user: {},
+      customer: {}
     };
   },
   mounted: function() {
@@ -65,6 +69,14 @@ export default {
         .get("terminal/" + this.$route.params.id + "/")
         .then(resp => {
           this.terminal = resp.data;
+          this.$http.get("user/" + this.terminal.owner + "/").then(resp => {
+            this.user = resp.data;
+            this.$http
+              .get("customer/" + this.user.customer + "/")
+              .then(resp => {
+                this.customer = resp.data;
+              });
+          });
         })
         .catch(err => {
           console.log(err.response);

@@ -200,7 +200,7 @@ export default {
           })
           .catch(err => {
             console.log("Error in user post");
-            console.error(err.response);
+            console.error(err);
           });
       } else if (this.customer && this.user && this.terminal) {
         this.$http

@@ -15,7 +15,7 @@
           <div class="d-flex align-items-center">
             <strong>{{ currentTerminal.name }}</strong>
             <span class="mx-2">|</span>
-            <span>{{ currentTerminal.owner.customer.company }}</span>
+            <span>{{ customer.company }}</span>
           </div>
           <p class="small my-1">
             Campagne:
@@ -85,7 +85,9 @@ export default {
     return {
       currentTerminal: this.terminal,
       campaigns: {},
-      games: {}
+      games: {},
+      user: {},
+      customer: {}
     };
   },
   mounted: function() {
@@ -100,6 +102,12 @@ export default {
         .then(resp => {
           this.games = resp.data;
         });
+      this.$http.get("user/" + this.currentTerminal.owner + "/").then(resp => {
+        this.user = resp.data;
+        this.$http.get("customer/" + this.user.customer + "/").then(resp => {
+          this.customer = resp.data;
+        });
+      });
     } else {
       this.campaigns = ["Non assigné"];
     }

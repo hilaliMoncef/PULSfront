@@ -41,7 +41,8 @@ export default {
   },
   data: function() {
     return {
-      terminals: ""
+      terminals: "",
+      customers: ""
     };
   },
   mounted: function() {
