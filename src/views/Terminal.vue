@@ -20,7 +20,7 @@
             <span class="badge badge-success mr-2" v-if="terminal.is_active"
               >Activé</span
             >
-            <span class="badge badge-danger mr-2" v-else>Inactive</span>
+            <span class="badge badge-danger mr-2" v-else>Désactivé</span>
             <span class="badge badge-success mr-2" v-if="terminal.is_on"
               >Allumé</span
             >
@@ -28,7 +28,6 @@
             <span class="badge badge-success" v-if="terminal.is_playing"
               >En jeu</span
             >
-            <span class="badge badge-warning" v-else>En attente</span>
           </p>
         </div>
       </div>

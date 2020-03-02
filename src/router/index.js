@@ -17,6 +17,7 @@ import AddTerminal from "../views/AddTerminal.vue";
 import Games from "../views/Games.vue";
 import EditGame from "../views/EditGame.vue";
 import AddGame from "../views/AddGame.vue";
+import Donators from "../views/Donators.vue";
 import Login from "../views/Login.vue";
 
 // import StartTerminal from "../views/Game/StartTerminal.vue";
@@ -156,6 +157,14 @@ const routes = [
     path: "/terminal/:id/edit",
     name: "edit-terminal",
     component: EditTerminal,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/donators",
+    name: "donators",
+    component: Donators,
     meta: {
       requiresAuth: true
     }

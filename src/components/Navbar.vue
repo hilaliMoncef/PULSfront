@@ -32,6 +32,10 @@
           <router-link class="dropdown-item p-2 text-dark" to="/customers"
             >Clients</router-link
           >
+          <hr />
+          <router-link class="dropdown-item p-2 text-dark" to="/donators"
+            >Donateurs</router-link
+          >
         </div>
       </span>
     </nav>
