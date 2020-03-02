@@ -127,7 +127,7 @@
         <div class="card card-rounded">
           <div class="card-body">
             <h3 class="my-3">Vidéo</h3>
-            <youtube :video-id="campaign.video_url" class="w-100"></youtube>
+            <youtube :video-id="campaign.video" class="w-100"></youtube>
           </div>
         </div>
       </div>
