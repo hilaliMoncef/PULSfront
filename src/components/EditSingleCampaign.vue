@@ -172,7 +172,7 @@
                 type="file"
                 id="photo20"
                 name="photo20"
-                ref="action-photo20"
+                ref="photo20"
                 required="required"
                 @change="handleFileChange"
               />
