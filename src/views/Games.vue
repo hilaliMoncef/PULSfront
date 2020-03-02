@@ -33,7 +33,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title">
-                    Etes-vous sûr de vouloir supprimer
+                    Etes-vous sûr de vouloir archiver
                     <strong>{{ game.name }}</strong> ?
                   </h5>
                   <button
@@ -62,7 +62,7 @@
                     @click.prevent="deleteGame(game.id)"
                     class="btn btn-danger"
                   >
-                    Supprimer
+                    Archiver
                   </button>
                 </div>
               </div>
@@ -93,7 +93,7 @@
                 class="text-danger"
                 data-toggle="modal"
                 :data-target="'#deleteModal-' + game.id"
-                >Supprimer</a
+                >Archiver</a
               >
             </div>
           </div>

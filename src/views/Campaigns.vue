@@ -35,7 +35,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title">
-                    Etes-vous sûr de vouloir supprimer
+                    Etes-vous sûr de vouloir archiver
                     <strong>{{ campaign.name }}</strong> ?
                   </h5>
                   <button
@@ -48,7 +48,10 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <p>Cette action est irréversible.</p>
+                  <p>
+                    Cette campagne ne sera plus visible dans la liste des
+                    campagnes.
+                  </p>
                 </div>
                 <div class="modal-footer">
                   <button
@@ -64,7 +67,7 @@
                     @click.prevent="deleteCampaign(campaign.id)"
                     class="btn btn-danger"
                   >
-                    Supprimer
+                    Archiver
                   </button>
                 </div>
               </div>
@@ -103,7 +106,7 @@
                 class="text-danger"
                 data-toggle="modal"
                 :data-target="'#deleteModal-' + campaign.id"
-                >Supprimer</a
+                >Archiver</a
               >
             </div>
           </div>
