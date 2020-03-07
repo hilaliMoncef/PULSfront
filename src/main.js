@@ -6,6 +6,8 @@ import axios from "axios";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import toast from "@/assets/js/toast.js";
+import VueProgressBar from "vue-progressbar";
+import VueYoutube from "vue-youtube";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faUserSecret,
@@ -16,20 +18,33 @@ import {
   faLink,
   faEuroSign,
   faPlay,
-  faVideo
+  faVideo,
+  faBell,
+  faCog,
+  faPowerOff,
+  faRocket,
+  faUser,
+  faFile,
+  faGamepad,
+  faColumns,
+  faWallet,
+  faArrowUp,
+  faArrowDown,
+  faAngleRight,
+  faEye,
+  faTrashAlt,
+  faEnvelope,
+  faMapPin
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import VueProgressBar from "vue-progressbar";
-import VueYoutube from "vue-youtube";
-
-Vue.use(VueYoutube);
-
-// Loading bar stuff
-Vue.use(VueProgressBar, {
-  color: "rgb(91, 184, 93)",
-  failedColor: "red",
-  height: "3px"
-});
+import Alert from "@/components/Alert.vue";
+require("./assets/admin/vendor/bootstrap/css/bootstrap.min.css");
+require("./assets/admin/vendor/fonts/circular-std/style.css");
+require("./assets/admin/libs/css/style.css");
+require("./assets/admin/vendor/charts/chartist-bundle/chartist.css");
+require("./assets/admin/vendor/charts/morris-bundle/morris.css");
+require("./assets/admin/vendor/charts/c3charts/c3.css");
+require("./assets/admin/vendor/fonts/flag-icon-css/flag-icon.min.css");
 
 // Font Awesome Stuff
 library.add(
@@ -41,9 +56,37 @@ library.add(
   faLink,
   faEuroSign,
   faPlay,
-  faVideo
+  faVideo,
+  faBell,
+  faCog,
+  faPowerOff,
+  faRocket,
+  faUser,
+  faFile,
+  faGamepad,
+  faColumns,
+  faWallet,
+  faAngleRight,
+  faArrowUp,
+  faArrowDown,
+  faEye,
+  faTrashAlt,
+  faEnvelope,
+  faMapPin
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
+
+// Adding error handling component
+Vue.component("Alert", Alert);
+
+Vue.use(VueYoutube);
+
+// Loading bar stuff
+Vue.use(VueProgressBar, {
+  color: "rgb(91, 184, 93)",
+  failedColor: "red",
+  height: "3px"
+});
 
 Vue.config.productionTip = false;
 

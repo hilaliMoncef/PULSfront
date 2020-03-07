@@ -2,32 +2,10 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store/index.js";
 
-import Home from "../views/Home.vue";
-import Campaigns from "../views/Campaigns.vue";
-import Campaign from "../views/Campaign.vue";
-import EditCampaign from "../views/EditCampaign.vue";
-import AddCampaign from "../views/AddCampaign.vue";
-import Customers from "../views/Customers.vue";
-import AddCustomer from "../views/AddCustomer.vue";
-import EditCustomer from "../views/EditCustomer.vue";
-import Terminals from "../views/Terminals.vue";
-import Terminal from "../views/Terminal.vue";
-import EditTerminal from "../views/EditTerminal.vue";
-import AddTerminal from "../views/AddTerminal.vue";
-import Games from "../views/Games.vue";
-import EditGame from "../views/EditGame.vue";
-import AddGame from "../views/AddGame.vue";
-import Donators from "../views/Donators.vue";
+import Home from "../views/Admin/Home.vue";
+import AllTerminals from "../views/Admin/Terminals/All.vue";
+import ShowTerminal from "../views/Admin/Terminals/Show.vue";
 import Login from "../views/Login.vue";
-
-// import StartTerminal from "../views/Game/StartTerminal.vue";
-// import GameChoice from "../views/Game/GameChoice.vue";
-// import ShowCampaign from "../views/Game/ShowCampaign.vue";
-// import StopTerminal from "../views/Game/StopTerminal.vue";
-// import Payment from "../views/Game/Payment.vue";
-// import Play from "../views/Game/Play.vue";
-// import Endgame from "../views/Game/Endgame.vue";
-// import EmailSent from "../views/Game/EmailSent.vue";
 
 Vue.use(VueRouter);
 
@@ -36,88 +14,6 @@ const routes = [
     path: "/",
     name: "home",
     component: Home
-  },
-  {
-    path: "/campaigns",
-    name: "campaings",
-    component: Campaigns,
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: "/campaign/add",
-    name: "add-campaign",
-    component: AddCampaign,
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: "/campaign/:id",
-    name: "campaign",
-    component: Campaign,
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: "/campaign/:id/edit",
-    name: "edit-campaign",
-    component: EditCampaign,
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: "/customers",
-    name: "customers",
-    component: Customers
-  },
-  {
-    path: "/customer/:id/edit",
-    name: "edit-customer",
-    component: EditCustomer,
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: "/customer/add",
-    name: "add-customer",
-    component: AddCustomer,
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: "/games",
-    name: "games",
-    component: Games
-  },
-  {
-    path: "/game/:id/edit",
-    name: "edit-game",
-    component: EditGame,
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: "/game/add",
-    name: "add-game",
-    component: AddGame,
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
   },
   {
     path: "/login",
@@ -130,43 +26,19 @@ const routes = [
   {
     path: "/terminals",
     name: "terminals",
-    component: Terminals,
+    component: AllTerminals,
     meta: {
       requiresAuth: true,
       requiresAdmin: true
     }
   },
   {
-    path: "/terminal/add",
-    name: "add-terminal",
-    component: AddTerminal,
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: "/terminal/:id",
+    path: "/terminals/:id",
     name: "terminal",
-    component: Terminal,
+    component: ShowTerminal,
     meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/terminal/:id/edit",
-    name: "edit-terminal",
-    component: EditTerminal,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: "/donators",
-    name: "donators",
-    component: Donators,
-    meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      requiresAdmin: true
     }
   }
 ];
