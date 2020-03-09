@@ -50,8 +50,8 @@
                     >
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/general.html"
-                      >Ajouter un terminal</a
+                    <router-link class="nav-link" :to="{ name: 'addTerminal' }"
+                      >Ajouter un terminal</router-link
                     >
                   </li>
                 </ul>
@@ -60,6 +60,7 @@
 
             <li class="nav-item">
               <a
+                to="/campaigns"
                 class="nav-link first"
                 exact
                 :event="''"
@@ -73,13 +74,13 @@
               <div id="submenu-campaigns" class="collapse submenu" style="">
                 <ul class="nav flex-column">
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/cards.html"
-                      >Toutes les campagnes</a
+                    <router-link class="nav-link" to="/campaigns"
+                      >Toutes les campagnes</router-link
                     >
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/general.html"
-                      >Ajouter une campagne</a
+                    <router-link class="nav-link" :to="{ name: 'addCampaign' }"
+                      >Ajouter une campagne</router-link
                     >
                   </li>
                 </ul>

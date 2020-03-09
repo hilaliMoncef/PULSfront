@@ -5,6 +5,12 @@ import store from "../store/index.js";
 import Home from "../views/Admin/Home.vue";
 import AllTerminals from "../views/Admin/Terminals/All.vue";
 import ShowTerminal from "../views/Admin/Terminals/Show.vue";
+import AddTerminal from "../views/Admin/Terminals/Add.vue";
+import EditTerminal from "../views/Admin/Terminals/Edit.vue";
+import AllCampaigns from "../views/Admin/Campaigns/All.vue";
+import ShowCampaign from "../views/Admin/Campaigns/Show.vue";
+import AddCampaign from "../views/Admin/Campaigns/Add.vue";
+import EditCampaign from "../views/Admin/Campaigns/Edit.vue";
 import Login from "../views/Login.vue";
 
 Vue.use(VueRouter);
@@ -36,6 +42,60 @@ const routes = [
     path: "/terminals/:id",
     name: "terminal",
     component: ShowTerminal,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/terminal/add",
+    name: "addTerminal",
+    component: AddTerminal,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/terminal/:id/edit",
+    name: "editTerminal",
+    component: EditTerminal,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/campaigns",
+    name: "campaigns",
+    component: AllCampaigns,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/campaigns/:id",
+    name: "campaign",
+    component: ShowCampaign,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/campaign/add",
+    name: "addCampaign",
+    component: AddCampaign,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/campaign/:id/edit",
+    name: "editCampaign",
+    component: EditCampaign,
     meta: {
       requiresAuth: true,
       requiresAdmin: true

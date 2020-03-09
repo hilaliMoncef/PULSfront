@@ -5,7 +5,6 @@ import store from "./store";
 import axios from "axios";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import toast from "@/assets/js/toast.js";
 import VueProgressBar from "vue-progressbar";
 import VueYoutube from "vue-youtube";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -34,7 +33,9 @@ import {
   faEye,
   faTrashAlt,
   faEnvelope,
-  faMapPin
+  faMapPin,
+  faUndo,
+  faLock
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Alert from "@/components/Alert.vue";
@@ -72,7 +73,9 @@ library.add(
   faEye,
   faTrashAlt,
   faEnvelope,
-  faMapPin
+  faMapPin,
+  faUndo,
+  faLock
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
@@ -111,36 +114,36 @@ Vue.prototype.$http.interceptors.request.use(
   }
 );
 
-// Add a response interceptor
-Vue.prototype.$http.interceptors.response.use(
-  response => {
-    Vue.prototype.$Progress.finish();
-    if (response.status && response.status == 201) {
-      toast.success(response.statusText);
-    }
-    if (response.status == 200 && response.config.method == "post") {
-      toast.success(response.statusText);
-    }
-    return response;
-  },
-  error => {
-    // Error handling part
-    Vue.prototype.$Progress.fail();
-    if (error.response && error.response.data) {
-      if (error.response.data.non_field_errors) {
-        toast.error(
-          error.response.statusText +
-            " - " +
-            error.response.data.non_field_errors
-        );
-      } else {
-        toast.error(error.response.statusText + " - " + error.response.data);
-      }
-    } else {
-      toast.error(error);
-    }
-  }
-);
+// // Add a response interceptor
+// Vue.prototype.$http.interceptors.response.use(
+//   response => {
+//     Vue.prototype.$Progress.finish();
+//     if (response.status && response.status == 201) {
+//       toast.success(response.statusText);
+//     }
+//     if (response.status == 200 && response.config.method == "post") {
+//       toast.success(response.statusText);
+//     }
+//     return response;
+//   },
+//   error => {
+//     // Error handling part
+//     Vue.prototype.$Progress.fail();
+//     if (error.response && error.response.data) {
+//       if (error.response.data.non_field_errors) {
+//         toast.error(
+//           error.response.statusText +
+//             " - " +
+//             error.response.data.non_field_errors
+//         );
+//       } else {
+//         toast.error(error.response.statusText + " - " + error.response.data);
+//       }
+//     } else {
+//       toast.error(error);
+//     }
+//   }
+// );
 
 new Vue({
   router,

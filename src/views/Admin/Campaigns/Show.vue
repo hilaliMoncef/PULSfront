@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="page-header">
-            <h2 class="pageheader-title">Terminaux</h2>
+            <h2 class="pageheader-title">Campagnes</h2>
             <div class="page-breadcrumb">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb d-flex align-items-center">
@@ -20,8 +20,8 @@
                     class="mx-1"
                   />
                   <li class="breadcrumb-item">
-                    <router-link to="/terminals" class="breadcrumb-link"
-                      >Terminaux</router-link
+                    <router-link to="/campaigns" class="breadcrumb-link"
+                      >Campagnes</router-link
                     >
                   </li>
                   <font-awesome-icon
@@ -30,7 +30,7 @@
                     class="mx-1"
                   />
                   <li class="breadcrumb-item active" aria-current="page">
-                    {{ terminal.name }}
+                    {{ campaign.name }}
                   </li>
                 </ol>
               </nav>
@@ -46,7 +46,7 @@
         @dismiss="errors.visible = false"
       />
 
-      <div class="row" v-if="terminal.name">
+      <div class="row" v-if="campaign.name">
         <!-- ============================================================== -->
         <!-- profile -->
         <!-- ============================================================== -->
@@ -57,34 +57,13 @@
           <div class="card">
             <div class="card-body">
               <div class="user-avatar text-center d-block">
-                <img
-                  src="@/assets/admin/images/arcade.svg"
-                  alt="User Avatar"
-                  height="100"
-                />
+                <img :src="campaign.logo" :alt="campaign.name" height="100" />
               </div>
               <div class="text-center">
-                <h2 class="font-24 mb-0">{{ terminal.name }}</h2>
+                <h2 class="font-24 mb-0">{{ campaign.name }}</h2>
                 <p>
-                  {{ terminal.owner.customer.company }}
-                  <span class="mx-2">|</span>
-                  <span v-if="terminal.is_active" class="text-success"
-                    >Activé</span
-                  ><span v-else class="text-danger">Désactivé</span>
+                  <a :href="campaign.link">{{ campaign.link }}</a>
                 </p>
-              </div>
-              <div
-                class="d-flex align-items-center justify-content-center mt-2"
-              >
-                <span v-if="terminal.is_on" class="badge badge-success mr-2"
-                  >Allumé</span
-                >
-                <span v-else class="badge badge-danger mr-2">Eteint</span>
-                <span
-                  v-if="terminal.is_playing"
-                  class="badge badge-warning mr-2"
-                  >En jeu</span
-                >
               </div>
             </div>
 
@@ -93,14 +72,10 @@
               <div class="">
                 <ul class="list-unstyled mb-0">
                   <li class="mb-2">
-                    <font-awesome-icon icon="envelope" class="mr-2" />{{
-                      terminal.owner.customer.representative
-                    }}
+                    <font-awesome-icon icon="link" class="mr-2" />
                   </li>
                   <li class="mb-0">
-                    <font-awesome-icon icon="map-pin" class="mr-2" />{{
-                      terminal.location
-                    }}
+                    <font-awesome-icon icon="map-pin" class="mr-2" />
                   </li>
                 </ul>
               </div>
@@ -111,18 +86,7 @@
                 <ul class="mb-0 list-unstyled">
                   <li
                     class="mb-1 border border-primary rounded p-1 px-2 bg-light campaign-card"
-                    v-for="(campaign, index) in terminal.campaigns"
-                    :key="index"
-                  >
-                    <router-link :to="'/campaign/' + campaign.id">
-                      <img
-                        :src="campaign.logo"
-                        width="20"
-                        class="mr-2 campaign-logo-grayed"
-                        :alt="campaign.name"
-                      />{{ campaign.name }}</router-link
-                    >
-                  </li>
+                  ></li>
                 </ul>
               </div>
             </div>
@@ -132,18 +96,7 @@
                 <ul class="mb-0 list-unstyled">
                   <li
                     class="mb-1 border border-primary rounded p-1 px-2 bg-light campaign-card"
-                    v-for="(game, index) in terminal.games"
-                    :key="index"
-                  >
-                    <router-link :to="'/game/' + game.id">
-                      <img
-                        :src="game.logo"
-                        width="20"
-                        class="mr-2 campaign-logo-grayed"
-                        :alt="game.name"
-                      />{{ game.name }}</router-link
-                    >
-                  </li>
+                  ></li>
                 </ul>
               </div>
             </div>
@@ -180,29 +133,6 @@
                   >Statistiques</a
                 >
               </li>
-              <li class="nav-item">
-                <a
-                  href=""
-                  class="nav-link text-success"
-                  id="pills-packages-tab"
-                  v-if="!terminal.is_active"
-                  @click.prevent="activateTerminal(terminal.id)"
-                  >Activer</a
-                >
-                <a
-                  href=""
-                  class="nav-link text-danger"
-                  id="pills-packages-tab"
-                  v-else
-                  @click.prevent="deactivateTerminal(terminal.id)"
-                  >Désactiver</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-danger" id="pills-review-tab"
-                  >Supprimer</a
-                >
-              </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
               <div
@@ -220,7 +150,7 @@
                   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="card">
                       <div class="card-body">
-                        <h1 class="mb-1">{{ terminal.total_donations }} €</h1>
+                        <h1 class="mb-1">{{ totalToday }} €</h1>
                         <p>Totals dons</p>
                       </div>
                     </div>
@@ -228,12 +158,7 @@
                   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="card">
                       <div class="card-body">
-                        <h1 class="mb-1" v-if="terminal.avg_donation">
-                          {{ terminal.avg_donation.toFixed(2) }} €
-                        </h1>
-                        <h1 class="mb-1" v-else>
-                          0 €
-                        </h1>
+                        <h1 class="mb-1">{{ totalEver }} €</h1>
                         <p>Don moyen</p>
                       </div>
                     </div>
@@ -241,10 +166,9 @@
                   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="card">
                       <div class="card-body">
-                        <h1 class="mb-1" v-if="terminal.avg_timesession">
-                          {{ terminal.avg_timesession }}
+                        <h1 class="mb-1">
+                          {{ avgDonation }}
                         </h1>
-                        <h1 class="mb-1" v-else>00:00:00</h1>
                         <p>Session moyenne</p>
                       </div>
                     </div>
@@ -252,10 +176,7 @@
                   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="card">
                       <div class="card-body">
-                        <h1 class="mb-1" v-if="terminal.avg_gametimesession">
-                          {{ terminal.avg_gametimesession }}
-                        </h1>
-                        <h1 class="mb-1" v-else>00:00:00</h1>
+                        <h1 class="mb-1">00:00:00</h1>
                         <p>Temps de jeu moyen</p>
                       </div>
                     </div>
@@ -405,14 +326,11 @@ export default {
   name: "ShowTerminal",
   data: function() {
     return {
-      terminal: {
-        owner: {
-          customer: {
-            company: ""
-          }
-        },
-        payments: []
-      },
+      campaign: {},
+      totalToday: {},
+      totalEver: {},
+      avgDonation: {},
+      lastDonations: [],
       errors: {
         visible: false,
         type: "danger",
@@ -423,9 +341,6 @@ export default {
       pages: []
     };
   },
-  mounted: function() {
-    this.getTerminal();
-  },
   watch: {
     allPayments() {
       this.setPages();
@@ -433,34 +348,25 @@ export default {
   },
   computed: {
     allPayments() {
-      return this.terminal.payments;
+      return this.lastDonations;
     },
     displayedPayments() {
       return this.paginate(this.allPayments);
     }
   },
+  mounted: function() {
+    this.getCampaign();
+  },
   methods: {
-    getTerminal: function() {
+    getCampaign: function() {
       this.$http
-        .get("terminal/" + this.$route.params.id + "/")
+        .get("campaign/" + this.$route.params.id + "/")
         .then(resp => {
-          this.terminal = resp.data;
-          this.terminal.avg_donation = resp.data.avg_donation;
-          this.terminal.avg_gametimesession = resp.data.avg_gametimesession.replace(
-            /"/g,
-            ""
-          );
-          this.terminal.avg_timesession = resp.data.avg_timesession.replace(
-            /"/g,
-            ""
-          );
+          this.campaign = resp.data;
+          this.getStats();
         })
         .catch(err => {
-          this.errors = {
-            visible: true,
-            type: "danger",
-            message: err
-          };
+          console.log(err.response);
         });
     },
     setPages() {
@@ -476,43 +382,18 @@ export default {
       let to = page * perPage;
       return payments.slice(from, to);
     },
-    activateTerminal: function(id) {
-      if (
-        this.terminal.campaigns.length > 0 &&
-        this.terminal.games.length > 0
-      ) {
-        this.$http
-          .get("terminal/" + id + "/activate/")
-          .then(resp => {
-            this.$set(this.terminal, "is_active", resp.data.is_active);
-          })
-          .catch(() => {
-            this.errors = {
-              visible: true,
-              type: "danger",
-              message: "Impossible de d'activer le terminal."
-            };
-          });
-      } else {
-        this.errors = {
-          visible: true,
-          type: "danger",
-          message: "Impossible d'activer un terminal sans campagne ou sans jeu."
-        };
-      }
-    },
-    deactivateTerminal: function(id) {
+    getStats: function() {
       this.$http
-        .get("terminal/" + id + "/deactivate/")
+        .get("campaign/" + this.$route.params.id + "/stats/")
         .then(resp => {
-          this.$set(this.terminal, "is_active", resp.data.is_active);
+          const data = JSON.parse(resp.data);
+          this.totalToday = data.total_today;
+          this.totalEver = data.total_ever;
+          this.avgDonation = data.avg_amount.toFixed(2);
+          this.lastDonations = data.last_donations;
         })
-        .catch(() => {
-          this.errors = {
-            visible: true,
-            type: "danger",
-            message: "Impossible de désactiver le terminal."
-          };
+        .catch(err => {
+          console.log(err.response);
         });
     }
   }

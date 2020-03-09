@@ -5,7 +5,15 @@
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="page-header">
-            <h2 class="pageheader-title">Terminaux</h2>
+            <div class="d-flex justify-content-between">
+              <h2 class="pageheader-title">Terminaux</h2>
+              <router-link
+                class="btn btn-primary mb-1"
+                :to="{ name: 'addTerminal' }"
+                ><font-awesome-icon icon="plus" class="mr-2" />Ajouter un
+                terminal</router-link
+              >
+            </div>
             <div class="page-breadcrumb">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb d-flex align-items-center">
@@ -20,7 +28,7 @@
                     class="mx-1"
                   />
                   <li class="breadcrumb-item">
-                    <router-link to="/home" class="breadcrumb-link"
+                    <router-link to="/terminals" class="breadcrumb-link"
                       >Terminaux</router-link
                     >
                   </li>
@@ -108,7 +116,10 @@
                             }}</router-link></span
                           >
                         </td>
-                        <td>{{ terminal.total_donations }}€</td>
+                        <td v-if="terminal.total_donations">
+                          {{ terminal.total_donations }} €
+                        </td>
+                        <td v-else>0 €</td>
                         <td>
                           <router-link
                             :to="'/terminals/' + terminal.id"
@@ -133,7 +144,9 @@
                           /></a>
                         </td>
                         <td>
-                          <router-link to="/" class="text-primary"
+                          <router-link
+                            :to="'/terminal/' + terminal.id + '/edit'"
+                            class="text-primary"
                             ><font-awesome-icon icon="pen"
                           /></router-link>
                         </td>

@@ -7072,3 +7072,92 @@ Media Query
 .campaign-card:hover .campaign-logo-grayed {
   filter: grayscale(0);
 }
+
+.card-checkbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #dfe2ea;
+  color: #a0a2b1;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: 0.2s ease all;
+}
+
+.card-checkbox input {
+  display: none;
+}
+
+.card-checkbox:hover {
+  color: #3751ff;
+  border-color: #3751ff;
+  cursor: pointer;
+}
+
+.card-checkbox .selected {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #dfe2ea;
+  transition: 0.2s ease all;
+  font-size: 12px;
+  color: transparent;
+}
+
+.card-checkbox:hover .selected {
+  border-color: #3751ff;
+}
+
+.card-checkbox .checkbox-icon {
+  text-align: center;
+}
+
+.card-checkbox:hover .checkbox-icon {
+  fill: #3751ff;
+}
+
+.checked {
+  border-color: #3751ff;
+  color: #3751ff;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(210, 215, 252, 1);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(210, 215, 252, 1);
+  box-shadow: 0px 0px 6px 0px rgba(210, 215, 252, 1);
+}
+
+.checked svg {
+  fill: #3751ff;
+}
+
+.checked .selected {
+  border-color: #3751ff;
+  background-color: #3751ff;
+  color: white;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.upload-btn-wrapper button {
+  cursor: pointer;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.upload-btn-wrapper input[type="file"]:hover {
+  cursor: pointer;
+}

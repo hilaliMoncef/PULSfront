@@ -175,32 +175,35 @@ export default {
   },
   methods: {
     addTerminal: function() {
-      if (this.choosenCustomer != "" && this.customer.id) {
+      if (this.choosenCustomer.id && this.customer.id) {
         this.user.customer = this.customer.id;
         this.$http
           .post("user/", this.user)
           .then(resp => {
             this.user = resp.data;
             this.terminal.owner = this.user.id;
+
+            // Add logic for terminal's campaigns and games here
             this.terminal.campaigns = [];
             this.terminal.games = [];
             this.$http
               .post("terminal/", this.terminal)
               .then(resp => {
                 this.terminal = resp.data;
-                this.$router.push({
-                  name: "edit-terminal",
-                  params: { id: this.terminal.id }
-                });
+                this.$router.push("/terminals");
               })
-              .catch(err => {
-                console.log("Error in terminal post");
-                console.error(err.response);
+              .catch(() => {
+                this.errors = {
+                  visible: true,
+                  message: "Erreur dans l'enregistrement du terminal."
+                };
               });
           })
-          .catch(err => {
-            console.log("Error in user post");
-            console.error(err);
+          .catch(() => {
+            this.errors = {
+              visible: true,
+              message: "Erreur dans l'enregistrement de l'utilisateur."
+            };
           });
       } else if (this.customer && this.user && this.terminal) {
         this.$http
@@ -220,23 +223,28 @@ export default {
                   .then(resp => {
                     this.terminal = resp.data;
                     this.$router.push({
-                      name: "edit-terminal",
-                      params: { id: this.terminal.id }
+                      name: "terminals"
                     });
                   })
-                  .catch(err => {
-                    console.log("Error in terminal post");
-                    console.error(err.response);
+                  .catch(() => {
+                    this.errors = {
+                      visible: true,
+                      message: "Erreur dans l'enregistrement du terminal."
+                    };
                   });
               })
-              .catch(err => {
-                console.log("Error in user post");
-                console.error(err.response);
+              .catch(() => {
+                this.errors = {
+                  visible: true,
+                  message: "Erreur dans l'enregistrement de l'utilisateur."
+                };
               });
           })
-          .catch(err => {
-            console.log("Error in Customer post");
-            console.error(err.response);
+          .catch(() => {
+            this.errors = {
+              visible: true,
+              message: "Erreur dans l'enregistrement du client."
+            };
           });
       }
     },
