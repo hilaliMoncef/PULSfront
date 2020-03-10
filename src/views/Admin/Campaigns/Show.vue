@@ -196,7 +196,7 @@
                     <div class="card">
                       <div class="card-body">
                         <h1 class="mb-1" v-if="campaign.total_today">
-                          {{ campaign.total_today }} €
+                          {{ campaign.total_today.toFixed(2) }} €
                         </h1>
                         <h1 class="mb-1" v-else>0 €</h1>
                         <p>Dons aujourd'hui</p>
@@ -207,7 +207,7 @@
                     <div class="card">
                       <div class="card-body">
                         <h1 class="mb-1" v-if="campaign.avg_donation">
-                          {{ campaign.avg_donation }} €
+                          {{ campaign.avg_donation.toFixed(2) }} €
                         </h1>
                         <h1 class="mb-1" v-else>0 €</h1>
                         <p>Don moyen</p>
