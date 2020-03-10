@@ -10,7 +10,7 @@
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb d-flex align-items-center">
                   <li class="breadcrumb-item">
-                    <router-link to="/home" class="breadcrumb-link"
+                    <router-link to="/" class="breadcrumb-link"
                       >Dashboard</router-link
                     >
                   </li>
@@ -34,188 +34,139 @@
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="text-muted">Total Revenue</h5>
+                <h5 class="text-muted">Collecté ce mois</h5>
                 <div class="metric-value d-inline-block">
-                  <h1 class="mb-1">$12099</h1>
+                  <h1 class="mb-1" v-if="collected > 0">{{ collected }} €</h1>
+                  <h1 class="mb-1" v-else>0 €</h1>
                 </div>
                 <div
                   class="metric-label d-inline-block float-right text-success font-weight-bold"
+                  v-if="collected_last > 0"
                 >
-                  <span><font-awesome-icon icon="arrow-up"/></span
-                  ><span>5.86%</span>
+                  <span><font-awesome-icon icon="arrow-up" class="mr-1"/></span
+                  ><span>+{{ collected_last * 100 }} %</span>
+                </div>
+                <div
+                  class="metric-label d-inline-block float-right text-danger font-weight-bold"
+                  v-else-if="collected_last < 0"
+                >
+                  <span
+                    ><font-awesome-icon icon="arrow-down" class="mr-1"/></span
+                  ><span>{{ collected_last * 100 }} %</span>
+                </div>
+                <div
+                  class="metric-label d-inline-block float-right text-warning font-weight-bold"
+                  v-else
+                >
+                  <span>+{{ collected_last }} %</span>
                 </div>
               </div>
-              <div id="sparkline-revenue"></div>
             </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="text-muted">Affiliate Revenue</h5>
+                <h5 class="text-muted">Nombre de donateurs</h5>
                 <div class="metric-value d-inline-block">
-                  <h1 class="mb-1">$12099</h1>
+                  <h1 class="mb-1">{{ nb_donators }}</h1>
                 </div>
                 <div
                   class="metric-label d-inline-block float-right text-success font-weight-bold"
+                  v-if="nb_donators_last > 0"
                 >
-                  <span><font-awesome-icon icon="arrow-up"/></span
-                  ><span>5.86%</span>
+                  <span><font-awesome-icon icon="arrow-up" class="mr-1"/></span
+                  ><span>+{{ nb_donators_last * 100 }} %</span>
+                </div>
+                <div
+                  class="metric-label d-inline-block float-right text-danger font-weight-bold"
+                  v-else-if="nb_donators_last < 0"
+                >
+                  <span
+                    ><font-awesome-icon icon="arrow-down" class="mr-1"/></span
+                  ><span>{{ nb_donators_last * 100 }} %</span>
+                </div>
+                <div
+                  class="metric-label d-inline-block float-right text-warning font-weight-bold"
+                  v-else
+                >
+                  <span>+{{ nb_donators_last }} %</span>
                 </div>
               </div>
-              <div id="sparkline-revenue2"></div>
             </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="text-muted">Refunds</h5>
+                <h5 class="text-muted">Nombre de terminaux</h5>
                 <div class="metric-value d-inline-block">
-                  <h1 class="mb-1">0.00</h1>
-                </div>
-                <div
-                  class="metric-label d-inline-block float-right text-primary font-weight-bold"
-                >
-                  <span>N/A</span>
+                  <h1 class="mb-1">{{ nb_terminals }} €</h1>
                 </div>
               </div>
-              <div id="sparkline-revenue3"></div>
             </div>
           </div>
           <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="text-muted">Avg. Revenue Per User</h5>
+                <h5 class="text-muted">Temps total de jeu</h5>
                 <div class="metric-value d-inline-block">
-                  <h1 class="mb-1">$28000</h1>
-                </div>
-                <div
-                  class="metric-label d-inline-block float-right text-secondary font-weight-bold"
-                >
-                  <span>-2.00%</span>
+                  <h1 class="mb-1">{{ total_gamesession }}</h1>
                 </div>
               </div>
-              <div id="sparkline-revenue4"></div>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
             <div class="card">
-              <h5 class="card-header">Recent Orders</h5>
+              <h5 class="card-header">Terminaux allumés</h5>
               <div class="card-body p-0">
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="bg-light">
                       <tr class="border-0">
                         <th class="border-0">#</th>
-                        <th class="border-0">Image</th>
-                        <th class="border-0">Product Name</th>
-                        <th class="border-0">Product Id</th>
-                        <th class="border-0">Quantity</th>
-                        <th class="border-0">Price</th>
-                        <th class="border-0">Order Time</th>
-                        <th class="border-0">Customer</th>
                         <th class="border-0">Status</th>
+                        <th class="border-0">Nom</th>
+                        <th class="border-0">Client</th>
+                        <th class="border-0">Campagnes</th>
+                        <th class="border-0">Total dons</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
+                    <tbody v-if="terminals.length > 0">
+                      <tr v-for="(terminal, index) in terminals" :key="index">
+                        <td>{{ index + 1 }}</td>
                         <td>
-                          <div class="m-r-10">
-                            <img
-                              src="assets/images/product-pic.jpg"
-                              alt="user"
-                              class="rounded"
-                              width="45"
-                            />
-                          </div>
-                        </td>
-                        <td>Product #1</td>
-                        <td>id000001</td>
-                        <td>20</td>
-                        <td>$80.00</td>
-                        <td>27-08-2018 01:22:12</td>
-                        <td>Patricia J. King</td>
-                        <td>
-                          <span class="badge-dot badge-brand mr-1"></span
-                          >InTransit
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>
-                          <div class="m-r-10">
-                            <img
-                              src="assets/images/product-pic-2.jpg"
-                              alt="user"
-                              class="rounded"
-                              width="45"
-                            />
-                          </div>
-                        </td>
-                        <td>Product #2</td>
-                        <td>id000002</td>
-                        <td>12</td>
-                        <td>$180.00</td>
-                        <td>25-08-2018 21:12:56</td>
-                        <td>Rachel J. Wicker</td>
-                        <td>
-                          <span class="badge-dot badge-success mr-1"></span
-                          >Delivered
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>
-                          <div class="m-r-10">
-                            <img
-                              src="assets/images/product-pic-3.jpg"
-                              alt="user"
-                              class="rounded"
-                              width="45"
-                            />
-                          </div>
-                        </td>
-                        <td>Product #3</td>
-                        <td>id000003</td>
-                        <td>23</td>
-                        <td>$820.00</td>
-                        <td>24-08-2018 14:12:77</td>
-                        <td>Michael K. Ledford</td>
-                        <td>
-                          <span class="badge-dot badge-success mr-1"></span
-                          >Delivered
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>
-                          <div class="m-r-10">
-                            <img
-                              src="assets/images/product-pic-4.jpg"
-                              alt="user"
-                              class="rounded"
-                              width="45"
-                            />
-                          </div>
-                        </td>
-                        <td>Product #4</td>
-                        <td>id000004</td>
-                        <td>34</td>
-                        <td>$340.00</td>
-                        <td>23-08-2018 09:12:35</td>
-                        <td>Michael K. Ledford</td>
-                        <td>
-                          <span class="badge-dot badge-success mr-1"></span
-                          >Delivered
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="9">
-                          <a href="#" class="btn btn-outline-light float-right"
-                            >View Details</a
+                          <span v-if="terminal.is_playing" class="text-success"
+                            >En jeu</span
                           >
+                          <span v-else class="text-warning">Allumé</span>
+                        </td>
+                        <td>{{ terminal.name }}</td>
+                        <td>
+                          <router-link to="/">{{
+                            terminal.owner.customer.company
+                          }}</router-link>
+                        </td>
+                        <td>
+                          <span
+                            v-for="(campaign, index) in terminal.campaigns"
+                            :key="index"
+                            class="border border-primary p-1 small rounded mr-1"
+                            ><router-link to="/">{{
+                              campaign.name
+                            }}</router-link></span
+                          >
+                        </td>
+                        <td v-if="terminal.total_donations">
+                          {{ terminal.total_donations }} €
+                        </td>
+                        <td v-else>0 €</td>
+                      </tr>
+                    </tbody>
+                    <tbody v-else>
+                      <tr>
+                        <td colspan="6" class="text-center">
+                          Aucun terminal allumé pour le moment.
                         </td>
                       </tr>
                     </tbody>
@@ -232,6 +183,57 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  data: function() {
+    return {
+      terminals: {},
+      collected: 0,
+      nb_donators: 0,
+      nb_terminals: 0,
+      total_gamesession: 0,
+      collected_last: 0,
+      nb_donators_last: 0
+    };
+  },
+  mounted: function() {
+    this.getStats();
+  },
+  methods: {
+    getStats: function() {
+      this.$http
+        .get("dashboard/")
+        .then(resp => {
+          this.terminals = resp.data.terminals;
+          this.collected = resp.data.collected;
+          this.nb_donators = resp.data.nb_donators;
+          this.nb_terminals = resp.data.nb_terminals;
+          this.total_gamesession = resp.data.total_gamesession;
+
+          if ((resp.data.collected_last == 0) | !resp.data.collected_last) {
+            this.collected_last = 0;
+          } else {
+            this.collected_last =
+              (resp.data.collected - resp.data.collected_last) /
+              resp.data.collected_last;
+          }
+
+          if ((resp.data.nb_donators_last == 0) | !resp.data.nb_donators_last) {
+            this.nb_donators = 0;
+          } else {
+            this.nb_donators_last =
+              (resp.data.nb_donators - resp.data.nb_donators_last) /
+              resp.data.nb_donators_last;
+          }
+        })
+        .catch(() => {
+          this.errors = {
+            visible: true,
+            type: "danger",
+            message:
+              "Impossible de récupérer les statistiques, contactez le webmaster."
+          };
+        });
+    }
+  }
 };
 </script>

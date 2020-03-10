@@ -20,7 +20,7 @@
               Menu
             </li>
             <li class="nav-item">
-              <router-link exact class="nav-link" to="/">
+              <router-link exact class="nav-link first" to="/">
                 <font-awesome-icon
                   icon="rocket"
                   class="mr-2"
