@@ -79,7 +79,7 @@
                     </thead>
                     <tbody>
                       <tr v-for="(terminal, index) in terminals" :key="index">
-                        <td>{{ index + 1 }}</td>
+                        <td>{{ terminal.id }}</td>
                         <td>
                           <span v-if="terminal.is_active" class="text-success"
                             >Activé</span

@@ -143,7 +143,7 @@
                         </td>
                         <td>{{ terminal.name }}</td>
                         <td>
-                          <router-link to="/">{{
+                          <router-link to="/clients">{{
                             terminal.owner.customer.company
                           }}</router-link>
                         </td>
@@ -152,7 +152,7 @@
                             v-for="(campaign, index) in terminal.campaigns"
                             :key="index"
                             class="border border-primary p-1 small rounded mr-1"
-                            ><router-link to="/">{{
+                            ><router-link :to="'/campaigns/' + campaign.id">{{
                               campaign.name
                             }}</router-link></span
                           >
