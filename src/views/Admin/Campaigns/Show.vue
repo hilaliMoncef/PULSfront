@@ -57,13 +57,23 @@
           <div class="card">
             <div class="card-body">
               <div class="user-avatar text-center d-block">
-                <img :src="campaign.logo" :alt="campaign.name" height="100" />
+                <img
+                  :src="campaign.logo"
+                  :alt="campaign.name"
+                  height="100"
+                  style="width: 100%; object-fit: contain;"
+                />
               </div>
               <div class="text-center">
                 <h2 class="font-24 mb-0">{{ campaign.name }}</h2>
                 <p>
                   <a :href="campaign.link">{{ campaign.link }}</a>
                 </p>
+              </div>
+              <div class="text-center">
+                <span class="text-danger" v-if="campaign.is_archived"
+                  >Archivé</span
+                >
               </div>
             </div>
 
@@ -72,31 +82,12 @@
               <div class="">
                 <ul class="list-unstyled mb-0">
                   <li class="mb-2">
-                    <font-awesome-icon icon="link" class="mr-2" />
+                    <font-awesome-icon icon="wallet" class="mr-2" />
+                    Objectif de collecte : {{ campaign.goal_amount }} €
                   </li>
                   <li class="mb-0">
-                    <font-awesome-icon icon="map-pin" class="mr-2" />
+                    <p>{{ campaign.description }}</p>
                   </li>
-                </ul>
-              </div>
-            </div>
-            <div class="card-body border-top">
-              <h3 class="font-16">Campagnes</h3>
-              <div class="">
-                <ul class="mb-0 list-unstyled">
-                  <li
-                    class="mb-1 border border-primary rounded p-1 px-2 bg-light campaign-card"
-                  ></li>
-                </ul>
-              </div>
-            </div>
-            <div class="card-body border-top">
-              <h3 class="font-16">Jeux</h3>
-              <div class="">
-                <ul class="mb-0 list-unstyled">
-                  <li
-                    class="mb-1 border border-primary rounded p-1 px-2 bg-light campaign-card"
-                  ></li>
                 </ul>
               </div>
             </div>
@@ -133,6 +124,35 @@
                   >Statistiques</a
                 >
               </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  id="pills-actions-tab"
+                  data-toggle="pill"
+                  href="#pills-actions"
+                  role="tab"
+                  aria-controls="pills-actions"
+                  aria-selected="true"
+                  >Actions associatives</a
+                >
+              </li>
+              <li class="nav-item">
+                <router-link
+                  :to="'/campaign/' + campaign.id + '/edit'"
+                  class="nav-link text-warning"
+                  id="pills-review-tab"
+                  >Editer</router-link
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  href=""
+                  class="nav-link text-danger"
+                  @click.prevent="deleteCampaign(campaign.id)"
+                  id="pills-review-tab"
+                  >Archiver</a
+                >
+              </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
               <div
@@ -150,7 +170,24 @@
                   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="card">
                       <div class="card-body">
-                        <h1 class="mb-1">{{ totalToday }} €</h1>
+                        <span class="d-flex align-items-end mb-1">
+                          <h1 class="mb-0">
+                            {{ campaign.nb_terminals }}
+                          </h1>
+                          <p class="mb-1 ml-1">
+                            termina<span v-if="campaign.nb_terminals > 1"
+                              >l</span
+                            ><span v-else>ux</span>
+                          </p>
+                        </span>
+                        <p>Actifs dans</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <h1 class="mb-1">{{ campaign.collected }} €</h1>
                         <p>Totals dons</p>
                       </div>
                     </div>
@@ -158,151 +195,248 @@
                   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="card">
                       <div class="card-body">
-                        <h1 class="mb-1">{{ totalEver }} €</h1>
+                        <h1 class="mb-1" v-if="campaign.total_today">
+                          {{ campaign.total_today }} €
+                        </h1>
+                        <h1 class="mb-1" v-else>0 €</h1>
+                        <p>Dons aujourd'hui</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <h1 class="mb-1" v-if="campaign.avg_donation">
+                          {{ campaign.avg_donation }} €
+                        </h1>
+                        <h1 class="mb-1" v-else>0 €</h1>
                         <p>Don moyen</p>
                       </div>
                     </div>
                   </div>
-                  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <h1 class="mb-1">
-                          {{ avgDonation }}
-                        </h1>
-                        <p>Session moyenne</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <h1 class="mb-1">00:00:00</h1>
-                        <p>Temps de jeu moyen</p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-                <div class="section-block">
-                  <h3 class="section-title">Derniers dons</h3>
-                </div>
-                <div class="card">
-                  <h5 class="card-header">Dons</h5>
-                  <div class="card-body p-0">
-                    <div class="dataTables_wrapper dt-bootstrap4">
-                      <div class="table-responsive">
-                        <table class="table">
-                          <thead class="bg-light">
-                            <tr class="border-0">
-                              <th class="border-0">#</th>
-                              <th class="border-0">Status</th>
-                              <th class="border-0">Donateur</th>
-                              <th class="border-0">Campagne</th>
-                              <th class="border-0">Montant</th>
-                              <th class="border-0">Jeu</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr
-                              v-for="(payment, index) in displayedPayments"
-                              :key="index"
-                            >
-                              <td>{{ payment.id }}</td>
-                              <td>
-                                <span
-                                  v-if="payment.status == 'Accepted'"
-                                  class="text-success"
-                                  >{{ payment.status }}</span
+                <div class="row">
+                  <div class="col-6">
+                    <div class="section-block">
+                      <h3 class="section-title">Derniers dons</h3>
+                    </div>
+                    <div class="card">
+                      <h5 class="card-header">Dons</h5>
+                      <div class="card-body p-0">
+                        <div class="dataTables_wrapper dt-bootstrap4">
+                          <div class="table-responsive">
+                            <table class="table">
+                              <thead class="bg-light">
+                                <tr class="border-0">
+                                  <th class="border-0">#</th>
+                                  <th class="border-0">Status</th>
+                                  <th class="border-0">Donateur</th>
+                                  <th class="border-0">Montant</th>
+                                  <th class="border-0">Jeu</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  v-for="(payment, index) in displayedPayments"
+                                  :key="index"
                                 >
-                                <span v-else class="text-danger">{{
-                                  payment.status
-                                }}</span>
-                              </td>
-                              <td>N° {{ payment.donator.id }}</td>
-                              <td>
-                                <router-link to="/">
-                                  <img
-                                    :src="payment.campaign.logo"
-                                    width="20"
-                                    class="mr-2 campaign-logo-grayed"
-                                    :alt="payment.campaign.name"
-                                  />{{ payment.campaign.name }}</router-link
-                                >
-                              </td>
-                              <td>{{ payment.amount }} €</td>
-                              <td>
-                                <router-link to="/">
-                                  <img
-                                    :src="payment.game.logo"
-                                    width="20"
-                                    class="mr-2 campaign-logo-grayed"
-                                    :alt="payment.game.name"
-                                  />{{ payment.game.name }}</router-link
-                                >
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div
-                        class="d-flex align-items-center justify-content-between my-2"
-                      >
-                        <div class="col-sm-12 col-md-5">
+                                  <td>{{ payment.id }}</td>
+                                  <td>
+                                    <span
+                                      v-if="payment.status == 'Accepted'"
+                                      class="text-success"
+                                      >{{ payment.status }}</span
+                                    >
+                                    <span v-else class="text-danger">{{
+                                      payment.status
+                                    }}</span>
+                                  </td>
+                                  <td>N° {{ payment.donator }}</td>
+                                  <td>{{ payment.amount }} €</td>
+                                  <td>
+                                    <router-link to="/">
+                                      <img
+                                        :src="payment.game.logo"
+                                        width="20"
+                                        class="mr-2 campaign-logo-grayed"
+                                        :alt="payment.game.name"
+                                      />{{ payment.game.name }}</router-link
+                                    >
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                           <div
-                            class="dataTables_info"
-                            id="DataTables_Table_0_info"
-                            role="status"
-                            aria-live="polite"
+                            class="d-flex align-items-center justify-content-between my-2"
                           >
-                            Afficher 1 à {{ perPage }} de
-                            {{ allPayments.length }} entrées
+                            <div class="col-sm-12 col-md-5">
+                              <div
+                                class="dataTables_info"
+                                id="DataTables_Table_0_info"
+                                role="status"
+                                aria-live="polite"
+                              >
+                                Afficher 1 à {{ perPage }} de
+                                {{ allPayments.length }} entrées
+                              </div>
+                            </div>
+                            <div
+                              class="col-sm-12 col-md-7 d-flex justify-content-end"
+                            >
+                              <nav
+                                aria-label="Page navigation example"
+                                class="w-100"
+                              >
+                                <ul
+                                  class="pagination w-100  d-flex justify-content-end"
+                                >
+                                  <li class="page-item">
+                                    <a
+                                      class="page-link"
+                                      v-if="page != 1"
+                                      @click.prevent="page--"
+                                      href="#"
+                                      >Previous</a
+                                    >
+                                  </li>
+                                  <li
+                                    class="page-item"
+                                    v-for="pageNumber in pages.slice(
+                                      page - 1,
+                                      page + 5
+                                    )"
+                                    :key="pageNumber"
+                                  >
+                                    <a
+                                      class="page-link"
+                                      @click.prevent="page = pageNumber"
+                                      href="#"
+                                      >{{ pageNumber }}</a
+                                    >
+                                  </li>
+                                  <li class="page-item">
+                                    <a
+                                      class="page-link"
+                                      @click.prevent="page++"
+                                      v-if="page < pages.length"
+                                      href="#"
+                                      >Next</a
+                                    >
+                                  </li>
+                                </ul>
+                              </nav>
+                            </div>
                           </div>
                         </div>
-                        <div
-                          class="col-sm-12 col-md-7 d-flex justify-content-end"
-                        >
-                          <nav
-                            aria-label="Page navigation example"
-                            class="w-100"
-                          >
-                            <ul
-                              class="pagination w-100  d-flex justify-content-end"
-                            >
-                              <li class="page-item">
-                                <a
-                                  class="page-link"
-                                  v-if="page != 1"
-                                  @click.prevent="page--"
-                                  href="#"
-                                  >Previous</a
-                                >
-                              </li>
-                              <li
-                                class="page-item"
-                                v-for="pageNumber in pages.slice(
-                                  page - 1,
-                                  page + 5
-                                )"
-                                :key="pageNumber"
-                              >
-                                <a
-                                  class="page-link"
-                                  @click.prevent="page = pageNumber"
-                                  href="#"
-                                  >{{ pageNumber }}</a
-                                >
-                              </li>
-                              <li class="page-item">
-                                <a
-                                  class="page-link"
-                                  @click.prevent="page++"
-                                  v-if="page < pages.length"
-                                  href="#"
-                                  >Next</a
-                                >
-                              </li>
-                            </ul>
-                          </nav>
-                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="section-block">
+                      <h3 class="section-title">Vidéo d'association</h3>
+                    </div>
+                    <div class="card">
+                      <h5 class="card-header">Lien YouTube</h5>
+                      <div class="card-body p-0">
+                        <youtube
+                          :video-id="campaign.video"
+                          class="w-100"
+                        ></youtube>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="pills-actions"
+                role="tabpanel"
+                aria-labelledby="pills-actions-tab"
+              >
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="section-block">
+                      <h3 class="section-title">Actions associatives</h3>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <span class="mb-1">
+                          <img
+                            :src="campaign.photo1"
+                            :alt="campaign.text1"
+                            class="w-100 border"
+                            style="height: 150px; object-fit: contain;"
+                          />
+                        </span>
+                        <h1 class="mt-1 mb-0 text-center">1 €</h1>
+                        <p class="mt-1">{{ campaign.text1 }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <span>
+                          <img
+                            :src="campaign.photo5"
+                            :alt="campaign.text5"
+                            class="w-100 border"
+                            style="height: 150px; object-fit: contain;"
+                          />
+                        </span>
+                        <h1 class="mt-1 mb-0 text-center">5 €</h1>
+                        <p>{{ campaign.text5 }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <span>
+                          <img
+                            :src="campaign.photo10"
+                            :alt="campaign.text10"
+                            class="w-100 border"
+                            style="height: 150px; object-fit: contain;"
+                          />
+                        </span>
+                        <h1 class="mt-1 mb-0 text-center">10 €</h1>
+                        <p>{{ campaign.text10 }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <span>
+                          <img
+                            :src="campaign.photo20"
+                            :alt="campaign.text20"
+                            class="w-100 border"
+                            style="height: 150px; object-fit: contain;"
+                          />
+                        </span>
+                        <h1 class="mt-1 mb-0 text-center">20 €</h1>
+                        <p>{{ campaign.text20 }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <span>
+                          <img
+                            :src="campaign.photo30"
+                            :alt="campaign.text30"
+                            class="w-100 border"
+                            style="height: 150px; object-fit: contain;"
+                          />
+                        </span>
+                        <h1 class="mt-1 mb-0 text-center">30 €</h1>
+                        <p>{{ campaign.text30 }}</p>
                       </div>
                     </div>
                   </div>
@@ -327,10 +461,6 @@ export default {
   data: function() {
     return {
       campaign: {},
-      totalToday: {},
-      totalEver: {},
-      avgDonation: {},
-      lastDonations: [],
       errors: {
         visible: false,
         type: "danger",
@@ -348,7 +478,7 @@ export default {
   },
   computed: {
     allPayments() {
-      return this.lastDonations;
+      return this.campaign.last_donations;
     },
     displayedPayments() {
       return this.paginate(this.allPayments);
@@ -358,12 +488,16 @@ export default {
     this.getCampaign();
   },
   methods: {
+    deleteCampaign: function(id) {
+      this.$http.delete("/campaign/" + id + "/").then(() => {
+        this.$router.push("/campaigns");
+      });
+    },
     getCampaign: function() {
       this.$http
         .get("campaign/" + this.$route.params.id + "/")
         .then(resp => {
           this.campaign = resp.data;
-          this.getStats();
         })
         .catch(err => {
           console.log(err.response);
@@ -381,20 +515,6 @@ export default {
       let from = page * perPage - perPage;
       let to = page * perPage;
       return payments.slice(from, to);
-    },
-    getStats: function() {
-      this.$http
-        .get("campaign/" + this.$route.params.id + "/stats/")
-        .then(resp => {
-          const data = JSON.parse(resp.data);
-          this.totalToday = data.total_today;
-          this.totalEver = data.total_ever;
-          this.avgDonation = data.avg_amount.toFixed(2);
-          this.lastDonations = data.last_donations;
-        })
-        .catch(err => {
-          console.log(err.response);
-        });
     }
   }
 };

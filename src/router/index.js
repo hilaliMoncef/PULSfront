@@ -11,6 +11,12 @@ import AllCampaigns from "../views/Admin/Campaigns/All.vue";
 import ShowCampaign from "../views/Admin/Campaigns/Show.vue";
 import AddCampaign from "../views/Admin/Campaigns/Add.vue";
 import EditCampaign from "../views/Admin/Campaigns/Edit.vue";
+import AllGames from "../views/Admin/Games/All.vue";
+import AddGame from "../views/Admin/Games/Add.vue";
+import EditGame from "../views/Admin/Games/Edit.vue";
+import AllClients from "../views/Admin/Clients/All.vue";
+import AddClient from "../views/Admin/Clients/Add.vue";
+import EditClient from "../views/Admin/Clients/Edit.vue";
 import Login from "../views/Login.vue";
 
 Vue.use(VueRouter);
@@ -96,6 +102,60 @@ const routes = [
     path: "/campaign/:id/edit",
     name: "editCampaign",
     component: EditCampaign,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/games",
+    name: "games",
+    component: AllGames,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/game/add",
+    name: "addGame",
+    component: AddGame,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/game/:id/edit",
+    name: "editGame",
+    component: EditGame,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/clients",
+    name: "clients",
+    component: AllClients,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/client/add",
+    name: "addClient",
+    component: AddClient,
+    meta: {
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
+  {
+    path: "/client/:id/edit",
+    name: "editClient",
+    component: EditClient,
     meta: {
       requiresAuth: true,
       requiresAdmin: true

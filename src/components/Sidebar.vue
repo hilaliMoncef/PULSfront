@@ -59,7 +59,7 @@
             </li>
 
             <li class="nav-item">
-              <a
+              <router-link
                 to="/campaigns"
                 class="nav-link first"
                 exact
@@ -69,7 +69,8 @@
                 aria-expanded="false"
                 data-target="#submenu-campaigns"
                 aria-controls="submenu-campaigns"
-                ><font-awesome-icon icon="file" class="mr-2" /> Campagnes</a
+                ><font-awesome-icon icon="file" class="mr-2" />
+                Campagnes</router-link
               >
               <div id="submenu-campaigns" class="collapse submenu" style="">
                 <ul class="nav flex-column">
@@ -88,7 +89,8 @@
             </li>
 
             <li class="nav-item">
-              <a
+              <router-link
+                to="/games"
                 class="nav-link first"
                 exact
                 :event="''"
@@ -97,18 +99,19 @@
                 aria-expanded="false"
                 data-target="#submenu-games"
                 aria-controls="submenu-games"
-                ><font-awesome-icon icon="gamepad" class="mr-2" /> Jeux</a
+                ><font-awesome-icon icon="gamepad" class="mr-2" />
+                Jeux</router-link
               >
               <div id="submenu-games" class="collapse submenu" style="">
                 <ul class="nav flex-column">
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/cards.html"
-                      >Tous les jeux</a
+                    <router-link class="nav-link" to="/games"
+                      >Tous les jeux</router-link
                     >
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/general.html"
-                      >Ajouter un jeu</a
+                    <router-link class="nav-link" :to="{ name: 'addGame' }"
+                      >Ajouter un jeu</router-link
                     >
                   </li>
                 </ul>
@@ -120,7 +123,8 @@
             </li>
 
             <li class="nav-item">
-              <a
+              <router-link
+                to="/clients"
                 class="nav-link first"
                 exact
                 :event="''"
@@ -129,29 +133,23 @@
                 aria-expanded="false"
                 data-target="#submenu-clients"
                 aria-controls="submenu-clients"
-                ><font-awesome-icon icon="columns" class="mr-2" /> Clients</a
+                ><font-awesome-icon icon="columns" class="mr-2" />
+                Clients</router-link
               >
               <div id="submenu-clients" class="collapse submenu" style="">
                 <ul class="nav flex-column">
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/cards.html"
-                      >Tous les clients</a
+                    <router-link class="nav-link" to="/clients"
+                      >Tous les clients</router-link
                     >
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/general.html"
-                      >Ajouter un client</a
+                    <router-link class="nav-link" :to="{ name: 'addClient' }"
+                      >Ajouter un client</router-link
                     >
                   </li>
                 </ul>
               </div>
-            </li>
-
-            <li class="nav-item">
-              <router-link to="/" exact class="nav-link first" href="#"
-                ><font-awesome-icon icon="wallet" class="mr-2" />
-                Donateurs</router-link
-              >
             </li>
           </ul>
         </div>
