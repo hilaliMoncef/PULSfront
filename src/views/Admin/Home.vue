@@ -99,7 +99,7 @@
               <div class="card-body">
                 <h5 class="text-muted">Nombre de terminaux</h5>
                 <div class="metric-value d-inline-block">
-                  <h1 class="mb-1">{{ nb_terminals }} €</h1>
+                  <h1 class="mb-1">{{ nb_terminals }}</h1>
                 </div>
               </div>
             </div>
