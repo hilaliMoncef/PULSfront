@@ -17,7 +17,6 @@ import EditGame from "../views/Admin/Games/Edit.vue";
 import AllClients from "../views/Admin/Clients/All.vue";
 import AddClient from "../views/Admin/Clients/Add.vue";
 import EditClient from "../views/Admin/Clients/Edit.vue";
-import Login from "../views/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -26,14 +25,6 @@ const routes = [
     path: "/",
     name: "home",
     component: Home
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: Login,
-    meta: {
-      requiresAnon: true
-    }
   },
   {
     path: "/terminals",
