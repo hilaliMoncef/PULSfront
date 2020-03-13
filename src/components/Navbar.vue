@@ -23,11 +23,12 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              ><img
-                src="@/assets/admin/images/avatar-1.jpg"
-                alt=""
-                class="user-avatar-md rounded-circle"
-            /></a>
+              ><span
+                class="user-avatar-md rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                style="width: 40px; height: 40px;"
+                >A</span
+              ></a
+            >
             <div
               class="dropdown-menu dropdown-menu-right nav-user-dropdown"
               aria-labelledby="navbarDropdownMenuLink2"

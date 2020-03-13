@@ -30,6 +30,7 @@ export default new Vuex.Store({
       campaign: "",
       game: null
     },
+    loading: false,
     gamepad: {
       A: false,
       B: false,
@@ -136,6 +137,9 @@ export default new Vuex.Store({
     },
     setSessionId(state, id) {
       state.session.id = id;
+    },
+    loading(state, status) {
+      state.loading = status;
     }
   },
   actions: {
@@ -222,6 +226,7 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    loading: state => state.loading,
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
     isAdmin: state => state.is_admin,

@@ -104,46 +104,32 @@ if (token) {
 // Add a request interceptor
 Vue.prototype.$http.interceptors.request.use(
   function(config) {
-    Vue.prototype.$Progress.start();
+    console.log("starting request");
+    store.commit("loading", true);
     return config;
   },
   function(error) {
     // Do something with request error
-    Vue.prototype.$Progress.fail();
+    console.log("request error");
+    store.commit("loading", false);
     return Promise.reject(error);
   }
 );
 
-// // Add a response interceptor
-// Vue.prototype.$http.interceptors.response.use(
-//   response => {
-//     Vue.prototype.$Progress.finish();
-//     if (response.status && response.status == 201) {
-//       toast.success(response.statusText);
-//     }
-//     if (response.status == 200 && response.config.method == "post") {
-//       toast.success(response.statusText);
-//     }
-//     return response;
-//   },
-//   error => {
-//     // Error handling part
-//     Vue.prototype.$Progress.fail();
-//     if (error.response && error.response.data) {
-//       if (error.response.data.non_field_errors) {
-//         toast.error(
-//           error.response.statusText +
-//             " - " +
-//             error.response.data.non_field_errors
-//         );
-//       } else {
-//         toast.error(error.response.statusText + " - " + error.response.data);
-//       }
-//     } else {
-//       toast.error(error);
-//     }
-//   }
-// );
+// Add a response interceptor
+Vue.prototype.$http.interceptors.response.use(
+  response => {
+    console.log("finished");
+    store.commit("loading", false);
+    return response;
+  },
+  error => {
+    // Error handling part
+    console.log("error in response");
+    store.commit("loading", false);
+    return error;
+  }
+);
 
 new Vue({
   router,

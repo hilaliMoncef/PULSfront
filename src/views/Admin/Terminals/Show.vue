@@ -114,7 +114,7 @@
                     v-for="(campaign, index) in terminal.campaigns"
                     :key="index"
                   >
-                    <router-link :to="'/campaign/' + campaign.id">
+                    <router-link :to="'/campaigns/' + campaign.id">
                       <img
                         :src="campaign.logo"
                         width="20"
@@ -135,7 +135,7 @@
                     v-for="(game, index) in terminal.games"
                     :key="index"
                   >
-                    <router-link :to="'/game/' + game.id">
+                    <router-link :to="'/games/' + game.id">
                       <img
                         :src="game.logo"
                         width="20"
